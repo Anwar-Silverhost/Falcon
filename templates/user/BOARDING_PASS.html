@@ -1,0 +1,171 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    .details-col h4 {
+        font-family: sans-serif;
+        color: rgb(73, 73, 73);
+        font-size: 18px;
+        margin-top: -10px;
+        font-weight: 500;
+    }
+    
+</style>
+
+
+{% for i in passenger %}
+
+
+<div class="mx-auto" style="width:65%; margin-top: 30px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="card card-md">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2>Falcon Aviations</h2>
+                                </div>
+                                <div class="col-12 mt-1">
+                                    <div class="row d-flex">
+                                        <div class="col-12">
+
+                                            <div class="d-flex ">
+                                                <div class="col-4 mt-5">
+                                                    <h1 style="font-size: 50px;">
+                                                        {{i.flight_id.departure_airport_from.iata_code}}</h1>
+                                                </div>
+                                                <div class="col-2 mt-5">
+                                                    <span style="size: 40px;">
+                                                        <i class="fa-sharp fa-solid fa-plane-departure "
+                                                            style="font-size: 30px;"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="col-4 mt-5">
+                                                    <h1 style="font-size: 50px;">
+                                                        {{i.flight_id.arrival_airport_to.iata_code}}</h1>
+                                                </div>
+                                                <div class="col-2 float-start">
+                                                    <img src="{{i.qrcode.url}}" alt="" width="85%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-4 details-col">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <h3>PASSENGER NAME</h3>
+                                            <h4>{{i.surname}} {{i.fullname}}</h4>
+                                        </div>
+                                        <div class="col-3">
+
+                                            <h3>FLIGHT</h3>
+                                            <h4>{{i.flight_id}}</h4>
+                                        </div>
+                                        <div class="col-2">
+
+                                            <h3>SEQ</h3>
+                                            <h4>{{i.seq_no}}</h4>
+                                        </div>
+                                        <div class="col-2">
+
+                                            <h3>SEAT</h3>
+                                            <h4>{{i.seat_no}}</h4>
+                                        </div>
+                                        <div class="col-2">
+
+                                            <h3>CLASS</h3>
+                                            <h4>{{i.class}}</h4>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <h3>BOARDING TIME</h3>
+                                            <h4>{{i.class}}</h4>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="container" style="margin-left: 30px;">
+                                    <div class="col-9">
+                                        <h2>Falcon Aviations</h2>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="col-5 mt-5">
+                                                        <h1 style="font-size: 50px;">
+                                                            {{i.flight_id.departure_airport_from.iata_code}}</h1>
+                                                    </div>
+                                                    <div class="col-2 mt-5">
+                                                        <span style="size: 40px;">
+                                                            <i class="fa-sharp fa-solid fa-plane-departure "
+                                                                style="font-size: 30px;"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-5 mt-5">
+                                                        <h1 style="font-size: 50px;">
+                                                            {{i.flight_id.arrival_airport_to.iata_code}}</h1>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <div class="row">
+                                            <div class="col-8 details-col">
+
+                                                <div class="row">
+
+                                                    <div class="col-6">
+
+                                                        <h3>FLIGHT</h3>
+                                                        <h4>{{i.flight_id}}</h4>
+                                                    </div>
+                                                    <div class="col-3">
+
+                                                        <h3>SEQ</h3>
+                                                        <h4>{{i.seq_no}}</h4>
+                                                    </div>
+                                                    <div class="col-3">
+
+                                                        <h3>SEAT</h3>
+                                                        <h4>{{i.seat_no}}</h4>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <h3>PASSENGER NAME</h3>
+                                                        <h4>{{i.surname}} {{i.fullname}}</h4>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-4 float-start">
+                                                <img src="{{i.qrcode.url}}" alt="" width="85%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

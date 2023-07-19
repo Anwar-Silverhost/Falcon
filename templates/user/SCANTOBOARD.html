@@ -1,0 +1,217 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+<script>
+    document.addEventListener("keydown", function(event) {
+      event.preventDefault(); // Prevent default keyboard behavior
+    });
+  </script>
+
+<script>
+    var interval = setInterval(function() {
+        var input = document.getElementById('barcodeInput');
+        if (document.activeElement !== input) {
+            input.focus();
+        }
+    }, 1000);
+
+    // Clear the interval when the input box is clicked
+    var input = document.getElementById('barcodeInput');
+    input.addEventListener('click', function() {
+        clearInterval(interval);
+    });
+</script>
+
+<div class="page-header d-print-none">
+    <div class="container-xl align-items-center justify-content-center align-content-center">
+        <div class="row g-2 align-items-center justify-content-center align-content-center">
+            <div class="col-3">
+                <input type="text" class="form-control" id="barcodeInput" autofocus>
+
+            </div>
+
+            <div class="col-3">
+                <button class="btn btn-outline-primary">Report</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+
+            <div class="col-lg-4">
+
+                <div class="card" >
+                    <div class="tabel-responsive">
+                        <table class="table table-vcenter card-table" id="barcodeTable">
+                            <thead>
+                              <tr>
+                                <th>Barcode ID</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="table-responsive">
+                        <table id="data-table" class="table table-vcenter card-table">
+                            <thead>
+                                <tr>
+                                    <th>QRID</th>
+                                    <th>SurName</th>
+                                    <th>FullName</th>
+                                    <th>Gender</th>
+                                    <th>Seat No</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for p in passe %}
+
+                                {% if p.status == '100' %}
+                                <tr class="bg-success-lt">
+                                    {% else %}
+                                    <tr>
+                                {% endif %}
+                                    <td id="qridssss" data-qrid="{{p.qrid}}">{{p.qrid}}</td>
+                                    <td>{{p.surname}}</td>
+                                    <td>{{p.fullname}}</td>
+                                    <td>{{p.gender}}</td>
+                                    <td>{{p.seat_no}}</td>
+                                </tr>
+
+
+                                  
+                                {% endfor %}
+
+
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var barcodeTable = document.getElementById('barcodeTable').getElementsByTagName('tbody')[0];
+    var timer;
+    var barcodeValue = '';
+
+    // Event listener for barcode input
+    document.addEventListener('input', function(event) {
+      if (event.target.id === 'barcodeInput') {
+        barcodeValue = event.target.value;
+        clearTimeout(timer);
+        timer = setTimeout(processBarcode, 500);
+      }
+    });
+
+    function processBarcode() {
+      if (barcodeValue.trim() !== '') {
+        // Get the current date and time
+        var currentDate = new Date().toLocaleString();
+
+        // Create a new row in the table
+        var newRow = barcodeTable.insertRow();
+
+        // Insert the barcode value and current date into the new row
+        newRow.insertCell().appendChild(document.createTextNode(barcodeValue));
+        newRow.insertCell().appendChild(document.createTextNode(currentDate));
+
+        // Clear the barcode input
+        document.getElementById('barcodeInput').value = '';
+              // Save the data in IndexedDB
+      //saveDataToIndexedDB(barcodeValue, currentDate);
+
+
+        check_qrid(barcodeValue);
+      }
+    }
+  </script>
+
+<!-- <script>
+    function saveDataToIndexedDB(barcodeValue, currentDate) {
+    var request = indexedDB.open('BarcodeDB', 1);
+
+    request.onupgradeneeded = function(event) {
+      var db = event.target.result;
+      var objectStore = db.createObjectStore('barcodes', { keyPath: 'id', autoIncrement: true });
+      objectStore.createIndex('barcodeValue', 'barcodeValue', { unique: false });
+      objectStore.createIndex('currentDate', 'currentDate', { unique: false });
+    };
+
+    request.onsuccess = function(event) {
+      var db = event.target.result;
+      var transaction = db.transaction('barcodes', 'readwrite');
+      var objectStore = transaction.objectStore('barcodes');
+      var data = { barcodeValue: barcodeValue, currentDate: currentDate };
+      objectStore.add(data);
+
+      transaction.oncomplete = function() {
+        db.close();
+      };
+    };
+
+    request.onerror = function(event) {
+      console.error("IndexedDB error:", event.target.error);
+    };
+  }
+</script> -->
+
+<script>
+function check_qrid(barcodeValue) {
+  console.log('barcodeValue:', barcodeValue);
+
+  var currentUrl = window.location.href;
+  var baseURL = currentUrl.split("/")[2];
+  var updatedUrl = window.location.protocol + "//" + baseURL + '/passboard_idcheck/' + barcodeValue;
+  console.log(updatedUrl);
+
+  fetch(updatedUrl)
+    .then(response => {
+      console.log('Request successful');
+
+      // Get the table row with matching QRID
+      const row = document.querySelector(`#data-table td[id="qridssss"][data-qrid="${barcodeValue}"]`).parentNode;
+
+      // Add the 'bg-success' class to the row
+      row.classList.add('bg-success-lt');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

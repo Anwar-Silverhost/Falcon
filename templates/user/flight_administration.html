@@ -1,0 +1,1186 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .col-form-label {
+        text-align: right;
+    }
+</style>
+
+
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <!-- Page pre-title -->
+                <h2 class="page-title">
+                    Flight
+                </h2>
+                <div class="page-pretitle">
+                    Administration
+                </div>
+
+            </div>
+            <!-- Page title actions -->
+            <div class="col-auto ms-auto d-print-none">
+                <div class="btn-list">
+
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-report">
+                            Add Flight
+                        </a>
+                    </span>
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn">
+                            Add Flight Wizard
+                        </a>
+                    </span>
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn">
+                            Add Flight from PNL
+                        </a>
+                    </span>
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn">
+                            Flight Defaults
+                        </a>
+                    </span>
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn">
+                            Flight Schedule
+                        </a>
+                    </span>
+
+                    <!-- <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                        data-bs-target="#modal-report">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 5l0 14" />
+                            <path d="M5 12l14 0" />
+                        </svg>
+                        Create new report
+                    </a> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Edit Flights</h3>
+
+                            </div>
+
+                            <div class="card-body border-bottom py-3">
+                                <div class="d-flex">
+                                    <div class="text-muted">
+                                        Show
+                                        <div class="mx-2 d-inline-block">
+                                            <input type="text" class="form-control form-control-sm" value="10" size="4"
+                                                id="entriesInput" aria-label="Invoices count">
+                                        </div>
+                                        entries
+                                    </div>
+                                    <div class="ms-auto text-muted">
+                                        Search:
+                                        <div class="ms-2 d-inline-block">
+                                            <input type="text" class="form-control form-control-sm" id="searchInput"
+                                                aria-label="Search invoice">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="table-responsive" style="height: 600px;">
+                                <table class="table card-table table-vcenter text-nowrap datatable" id="invoiceTable">
+                                    <thead>
+                                        <tr class="th_dark">
+                                            <th class="w-1" style="color:black">Flight Id
+                                            </th>
+                                            <th style="color:black">Operator</th>
+                                            <th style="color:black">STD</th>
+                                            <th style="color:black">ETD</th>
+                                            <th style="color:black">From</th>
+                                            <th style="color:black">To</th>
+                                            <th style="color:black">Aircraft</th>
+                                            <th style="color:black">Flight Status</th>
+                                            <th style="color:black">Passnger Count</th>
+                                            <th style="color:black">Task Status</th>
+                                            <th style="color:black"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for i in flight reversed %}
+                                        <tr>
+                                            <td class="w-1">{{i.flight_number}}</td>
+                                            <td>{{i.operator}}</td>
+                                            <!-- <td>{{i.departure_time}}</td>
+                                            <td>{{i.departure_time}}</td> -->
+                                            <td>{{ i.departure_time|time:"h:i A" }}</td>
+                                            <td>{{ i.departure_time|time:"h:i A" }}</td>
+                                            <td>{{i.departure_airport_from.iata_code}}</td>
+                                            <td>{{i.arrival_airport_to.iata_code}}</td>
+                                            <td>{{i.aircraft_reg.registration_number}}</td>
+
+
+                                            {% if i.flight_status == 'scheduled' %}
+                                            <td><span class="badge badge-outline text-purple">Scheduled</span></td>
+                                            {% elif i.flight_status == 'finalized' %}
+                                            <td><span class="badge badge-outline text-green">Finalized</span></td>
+                                            {% else %}
+                                            <td><span class="badge badge-outline text-lime">Open</span></td>
+                                            {% endif %}
+                                            <td>{{i.flight_passengers}}</td>
+                                            <td>{{i.task_status}}</td>
+                                            <td class="text-end">
+                                                <button class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-simple-{{ i.id }}"
+                                                    data-flight-id="{{ i.id }}">
+                                                    EDIT
+                                                </button>
+                                                <button class="btn btn-outline-dark">
+                                                    COPY
+                                                </button>
+                                                <button class="btn btn-outline-dark">
+                                                    DELETE
+                                                </button>
+                                            </td>
+                                        </tr>
+
+
+                                        <!-- 
+                                        <span class="badge bg-blue-lt">Blue</span>
+                          <span class="badge bg-azure-lt">Azure</span>
+                          <span class="badge bg-indigo-lt">Indigo</span>
+                          <span class="badge bg-purple-lt">Purple</span>
+                          <span class="badge bg-pink-lt">Pink</span>
+                          <span class="badge bg-red-lt">Red</span>
+                          <span class="badge bg-orange-lt">Orange</span>
+                          <span class="badge bg-yellow-lt">Yellow</span>
+                          <span class="badge bg-lime-lt">Lime</span>
+                          <span class="badge bg-green-lt">Green</span>
+                          <span class="badge bg-teal-lt">Teal</span>
+                          <span class="badge bg-cyan-lt">Cyan</span>
+
+ -->
+
+
+
+
+                                        <div class="modal modal-blur fade" id="modal-simple-{{ i.id }}" tabindex="-1"
+                                            role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title ">Select Function</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="card mb-3">
+                                                            <div class="col-12">
+
+                                                                <div class="card bg-primary text-primary-fg">
+                                                                    <div class="card-stamp">
+                                                                        <div
+                                                                            class="card-stamp-icon bg-white text-primary">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="icon icon-tabler icon-tabler-plane-tilt"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" stroke-width="2"
+                                                                                stroke="currentColor" fill="none"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z"
+                                                                                    fill="none"></path>
+                                                                                <path
+                                                                                    d="M14.5 6.5l3 -2.9a2.05 2.05 0 0 1 2.9 2.9l-2.9 3l2.5 7.5l-2.5 2.55l-3.5 -6.55l-3 3v3l-2 2l-1.5 -4.5l-4.5 -1.5l2 -2h3l3 -3l-6.5 -3.5l2.5 -2.5l7.5 2.5z">
+                                                                                </path>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <h4 class="card-title">
+                                                                                    {{i.aircraft_reg.name}} |
+                                                                                    {{i.flight_number }}</h4>
+
+                                                                            </div>
+                                                                            <div class="col-6 text-end">
+                                                                                <h5 class="card-title">
+                                                                                    {{i.departure_date }}</h5>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <h6 class="card-text mb-0">
+                                                                                    {{i.departure_airport_from.airport_name}}
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div class="col-6 text-end">
+                                                                                <h6
+                                                                                    class="card-text mb-0 overflow-hidden">
+                                                                                    {{i.arrival_airport_to.airport_name}}
+                                                                                </h6>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-4">
+
+                                                                                <p class="card-text"
+                                                                                    style="font-size: 20px; font-weight: bold;">
+                                                                                    {{i.departure_airport_from.iata_code}}
+                                                                                </p>
+
+                                                                            </div>
+                                                                            <div class="col-4 text-center mt-1">--------
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    class="icon icon-tabler icon-tabler-plane"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" stroke-width="2"
+                                                                                    stroke="currentColor" fill="none"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path stroke="none"
+                                                                                        d="M0 0h24v24H0z" fill="none">
+                                                                                    </path>
+                                                                                    <path
+                                                                                        d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z">
+                                                                                    </path>
+                                                                                </svg> --------
+                                                                            </div>
+                                                                            <div class="col-4 text-end">
+
+                                                                                <p class="card-text"
+                                                                                    style="font-size: 20px; font-weight: bold;">
+                                                                                    {{i.arrival_airport_to.iata_code}}
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <p class="card-text">
+                                                                                    {{i.departure_time|time:"h:i A" }}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="col-6 text-end">
+                                                                                <p class="card-text">
+                                                                                    {{i.arrival_time|time:"h:i A" }}
+                                                                                </p>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="card" style="border: 0;">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <a href="{% url 'flight_details' i.id %}">
+                                                                            <button
+                                                                                class="btn btn-outline-dark btn-block w-100">Flight
+                                                                                Details</button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100 ">Flight
+                                                                            Closeout Actions + APIS</button>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Check-in
+                                                                            Workflow Settings</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Messaging
+                                                                            + Tasks</button>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Flight
+                                                                            Settings</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">PNL
+                                                                            Viewer</button>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Aircraft
+                                                                            & Seating</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Flight
+                                                                            History</button>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button data-bs-toggle="modal"
+                                                                            data-bs-target="#modal-status-{{ i.id }}"
+                                                                            data-flight-id="{{ i.id }}"
+                                                                            class="btn btn-outline-dark btn-block w-100"
+                                                                            onclick="hidedropoption()">Flight
+                                                                            Status</button>
+                                                                    </div>
+
+
+
+
+
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Reports</button>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row">
+
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <a
+                                                                            href="{% url 'flight_Passengers_Crew' i.id %}">
+                                                                            <button
+                                                                                class="btn btn-outline-dark btn-block w-100">Passengers
+                                                                                + Crew</button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Excel
+                                                                            Reports & Manifests</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">Baggage</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">View
+                                                                            Log</button>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">FlightNotes</button>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-1">
+                                                                        <button
+                                                                            class="btn btn-outline-dark btn-block w-100">OPTIMA
+                                                                            Values</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="modal modal-blur fade" id="modal-status-{{ i.id }}" tabindex="-1"
+                                            role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title ">Update Flight Status and Timing</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form action="{% url 'flight_status_change' i.id %}" method="post"
+                                                            enctype="multipart/form-data">
+                                                            {% csrf_token %}
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label">Flight
+                                                                    Status</label>
+                                                                <div class="col">
+                                                                    <select class="form-select" id="mainselect" name="status">
+                                                                        <option id="optionsvalue"
+                                                                            value="{{i.flight_status}}">
+                                                                            {{i.flight_status}}
+                                                                        </option>
+
+                                                                        <option id="scheduled" value="scheduled">
+                                                                            scheduled</option>
+                                                                        <option id="open" value="open">open</option>
+                                                                        <option id="suspended" value="suspended">
+                                                                            suspended</option>
+                                                                        <option id="finalized" value="finalized">
+                                                                            finalized</option>
+                                                                        <option id="departed" value="departed">departed
+                                                                        </option>
+                                                                        <option id="cancelled" value="cancelled">
+                                                                            cancelled</option>
+                                                                        <option id="nothandled" value="nothandled">not
+                                                                            handled</option>
+
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- 
+                                                            <script>
+                                                                function hidedropoption() {
+                                                                    console.log("======")
+                                                                    //get value in the option id abc
+                                                                    var x = document.getElementById('optionsvalue').value;
+                                                                    var selectedOption = document.getElementById('optionsvalue').value;
+
+                                                                    console.log(x)
+                                                                   
+                                                                   
+                                                                }
+
+                                                            </script> -->
+
+
+
+                                                                <div class="col-auto">
+                                                                    <label class="form-check">
+
+                                                                        <input class="form-check-input" type="checkbox">
+                                                                        <span class="form-check-label">Use UTC
+                                                                            Timezone</span>
+
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Estimated time
+                                                                    of
+                                                                    Departure (ETD)</label>
+                                                                <div class="col-auto">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time" value="{{i.departure_time}}">
+
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <input type="date" class="form-control"
+                                                                        id="dateInput" name="from_date">
+                                                                </div>
+                                                                <div class="col row">
+                                                                    <label class="col col-form-label">Gate</label>
+                                                                    <input type="text" name="" id=""
+                                                                        class="form-control col">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-2 row">
+                                                                <div class="col text-end">Status</div>
+                                                                <div class="col text-center">Open</div>
+                                                                <div class="col text-start">Close</div>
+
+
+                                                            </div>
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Check in</label>
+                                                                <div class="col-2">
+                                                                    <select class="form-select">
+                                                                        <option value="scheduled">Scheduled</option>
+                                                                        <option value="open">Open</option>
+                                                                        <option value="suspended">Suspended</option>
+                                                                        <option value="finalized">Finalized</option>
+                                                                        <option value="departed">Departed</option>
+                                                                        <option value="cancelled">Cancelled</option>
+                                                                        <option value="nothandled">Not Handled</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label class="form-check">
+
+                                                                        <input class="form-check-input" type="checkbox">
+                                                                        <span class="form-check-label">Complete</span>
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Gate</label>
+                                                                <div class="col-2">
+                                                                    <select class="form-select">
+                                                                        <option value="scheduled">Scheduled</option>
+                                                                        <option value="open">Open</option>
+                                                                        <option value="suspended">Suspended</option>
+                                                                        <option value="finalized">Finalized</option>
+                                                                        <option value="departed">Departed</option>
+                                                                        <option value="cancelled">Cancelled</option>
+                                                                        <option value="nothandled">Not Handled</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label class="form-check">
+
+                                                                        <input class="form-check-input" type="checkbox">
+                                                                        <span class="form-check-label">Complete</span>
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Boarding</label>
+                                                                <div class="col-2">
+                                                                    <select class="form-select">
+                                                                        <option value="scheduled">Scheduled</option>
+                                                                        <option value="open">Open</option>
+                                                                        <option value="suspended">Suspended</option>
+                                                                        <option value="finalized">Finalized</option>
+                                                                        <option value="departed">Departed</option>
+                                                                        <option value="cancelled">Cancelled</option>
+                                                                        <option value="nothandled">Not Handled</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label class="form-check">
+
+                                                                        <input class="form-check-input" type="checkbox">
+                                                                        <span class="form-check-label">Complete</span>
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Flight
+                                                                    Message</label>
+                                                                <div class="col">
+                                                                    <textarea class="form-control" name="" id=""
+                                                                        cols="30" rows="2"></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3 row">
+                                                                <label class="col-3 col-form-label ">Off-blocks
+                                                                    Time</label>
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+
+                                                                <label class="col-3 col-form-label ">Airborne
+                                                                    Time</label>
+                                                                <div class="col-2">
+                                                                    <input type="time" class="form-control"
+                                                                        name="from_time">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mt-2 row">
+                                                                <div class="col">
+                                                                    <button
+                                                                        class="text-end  btn btn-outline-facebook w-25 text-end">Save</button>
+                                                                </div>
+                                                            </div>
+
+
+
+
+                                                        </form>
+
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted" id="entriesText">Showing 0 to 0 of 0 entries</p>
+                            <ul class="pagination m-0 ms-auto">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M15 6l-6 6l6 6" />
+                                        </svg>
+                                        prev
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        next
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M9 6l6 6l-6 6" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+        filterTable();
+    });
+
+    function filterTable() {
+        var input = document.getElementById("searchInput").value.toLowerCase();
+        var table = document.getElementById("invoiceTable");
+        var rows = table.getElementsByTagName("tr");
+        var count = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var display = false;
+
+            for (var j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().indexOf(input) > -1) {
+                    display = true;
+                    break;
+                }
+            }
+
+            if (display) {
+                rows[i].style.display = "";
+                count++;
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+
+        document.getElementById("showingCount").textContent = count.toString();
+    }
+</script>
+
+<script>
+    var entriesInput = document.getElementById("entriesInput");
+    var invoiceTable = document.getElementById("invoiceTable");
+    var showingText = document.getElementById("entriesText");
+
+    entriesInput.addEventListener("input", function () {
+        updateTable();
+    });
+
+    function updateTable() {
+        var entries = parseInt(entriesInput.value, 10);
+        var rows = invoiceTable.getElementsByTagName("tr");
+        var totalCount = rows.length - 1; // Exclude header row
+        var totalPages = Math.ceil(totalCount / entries);
+        var currentPage = 1;
+
+        for (var i = 0; i < rows.length; i++) {
+            if (i === 0) {
+                rows[i].style.display = ""; // Display header row
+            } else {
+                rows[i].style.display = i <= entries ? "" : "none";
+
+                if (i > entries) {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        showingText.textContent = "Showing 1 to " + Math.min(entries, totalCount) + " of " + totalCount + " entries";
+        renderPagination(totalPages, currentPage);
+    }
+
+    function renderPagination(totalPages, currentPage) {
+        // Replace this code with your pagination logic
+        var pagination = document.querySelector(".pagination");
+        pagination.innerHTML = "";
+
+        for (var i = 1; i <= totalPages; i++) {
+            var li = document.createElement("li");
+            var link = document.createElement("a");
+            link.textContent = i;
+            link.href = "#";
+            li.appendChild(link);
+
+            if (i === currentPage) {
+                li.classList.add("active");
+            }
+
+            pagination.appendChild(li);
+        }
+    }
+
+    updateTable(); // Initial table update
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- add flight modal -->
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Flight</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <form action="{% url 'flight_save' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="row">
+
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label">Airline / Operator</label>
+                                <div class="col-5">
+                                    <div class="mb-2">
+                                        <select class="form-select" name="airline">
+                                            <option value="Falcon Airways">Falcon Airways</option>
+                                        </select>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Flight Number</label>
+
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="flight_number">
+                                </div>
+                                <div class="col-4">
+                                    <label class="form-check form-check-inline" style="margin-top:9px;">
+                                        <input class="form-check-input" type="checkbox">
+                                        <span class="form-check-label" style="font-size: 13px;">Use Aircraft Reg for
+                                            Flight</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Aircraft Reg</label>
+
+                                <div class="col-3">
+                                    <!-- <input type="text" class="form-control" name="a_r"> -->
+                                    <select class="form-select" name="a_r">
+                                        {% for air in air %}
+                                        <option value="{{air.id}}">{{air.registration_number}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!-- <select id="a_rDropdown" class="form-select" name="a_r">
+                                    </select> -->
+                                </div>
+                                <div class="col-3">
+                                    <span class="d-none d-sm-inline">
+                                        <a href="#" class="btn " style="background-color: rgba(22, 21, 21, 0.226);">
+                                            Add new
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label " style="margin-top: 29px;">From</label>
+                                <div class="col-5 " style="margin-top: 29px;">
+
+                                    <select class="form-select form-control" name="from_airport">
+                                        {% for i in airports %}
+                                        <option value="{{i.id}}">{{i.airport}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Depart Time</label>
+                                    <input type="time" class="form-control" name="from_time">
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Depart Date</label>
+                                    <input type="date" class="form-control" id="dateInput" name="from_date">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label " style="margin-top: 29px;">To</label>
+                                <div class="col-5 " style="margin-top: 29px;">
+
+                                    <select class="form-select form-control" name="to_airport">
+                                        {% for i in airports %}
+                                        <option value="{{i.id}}">{{i.airport}}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Arrival Time</label>
+                                    <input type="time" class="form-control" name="to_time">
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Arrival Date</label>
+                                    <input type="date" class="form-control" id="dateInput1" name="to_date">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Flight Category</label>
+                                <div class="col-5">
+                                    <div class="mb-2">
+                                        <select class="form-select" name="f_c">
+                                            <option value="scheduled" selected>Scheduled</option>
+                                            <option value="open">Open</option>
+                                            <option value="finalized">finalized</option>
+                                            <option value="charter">Charter</option>
+                                            <option value="nonstop">Non-Stop</option>
+                                            <option value="direct">Direct</option>
+                                            <option value="connecting">Connecting</option>
+                                            <option value="redeye">Red-Eye</option>
+                                            <option value="roundtrip">Round-trip</option>
+                                            <option value="oneway">One-way</option>
+                                            <option value="multicity">Multi-city</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Flight Type</label>
+                                <div class="col-5">
+                                    <div class="mb-2">
+                                        <select class="form-select" name="f_t">
+                                            <option value="Domestic" selected>Domestic</option>
+                                            <option value="International">International</option>
+                                            <option value="Transcontinental">Transcontinental</option>
+                                            <option value="Intercontinental">Intercontinental</option>
+                                            <option value="Regional">Regional</option>
+                                            <option value="Charter">Charter</option>
+                                            <option value="Low-cost Carrier">Low-cost Carrier</option>
+                                            <option value="Connecting">Connecting</option>
+                                            <option value="Non-stop">Non-stop</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Via 1</label>
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="v1">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Via 2</label>
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="v2">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label class="col-3 col-form-label ">Via 2</label>
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="v3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="align-items-center text-center mt-2">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 5l0 14" />
+                                <path d="M5 12l14 0" />
+                            </svg> Add
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  // JavaScript code
+  $(document).ready(function() {
+    $('#airlineDropdown').change(function() {
+      var selectedAirlineId = $(this).val();
+      $('#a_rDropdown').empty(); 
+      $.ajax({
+        url: ' ',  
+        type: 'GET',
+        data: { airline_id: selectedAirlineId },
+        success: function(response) {
+          // Add the fetched options to the second dropdown
+          response.options.forEach(function(option) {
+            $('#a_rDropdown').append($('<option>', {
+              value: option.id,
+              text: option.registration_number
+            }));
+          });
+        },
+        error: function(xhr, errmsg, err) {
+          console.log(errmsg);  // Handle error if any
+        }
+      });
+    });
+  });
+</script>
+
+  
+  
+   -->
+
+
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function AirportSave() {
+        var icaoCode = $('#icao-code').text();
+        var iataCode = $('#iata-code').text();
+        var airportName = $('#airport-name').text();
+        var data = {
+            'icao_code': icaoCode,
+            'iata_code': iataCode,
+            'airport_name': airportName
+        };
+        $.ajax({
+            url: "{% url 'airport_save_ajax' %}",  
+            type: 'POST',
+            data: data,
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", getCSRFToken()); 
+            },
+            success: function (response) {
+                console.log(response);
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+    function getCSRFToken() {
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='))
+            .split('=')[1];
+        return cookieValue;
+    }
+</script> -->
+
+
+
+
+
+
+
+
+
+<script>
+    var input = document.getElementById("dateInput");
+
+    // Get today's date
+    var today = new Date().toISOString().split('T')[0];
+
+    // Set the minimum value for the input field
+    input.setAttribute('min', today);
+
+    // Add an event listener to validate the selected date
+    input.addEventListener('input', function () {
+        var selectedDate = new Date(this.value).toISOString().split('T')[0];
+        if (selectedDate < today) {
+            this.value = today;
+        }
+    });
+</script>
+<script>
+    var input = document.getElementById("dateInput1");
+
+    // Get today's date
+    var today = new Date().toISOString().split('T')[0];
+
+    // Set the minimum value for the input field
+    input.setAttribute('min', today);
+
+    // Add an event listener to validate the selected date
+    input.addEventListener('input', function () {
+        var selectedDate = new Date(this.value).toISOString().split('T')[0];
+        if (selectedDate < today) {
+            this.value = today;
+        }
+    });
+</script>
+
+
+{% endblock %}

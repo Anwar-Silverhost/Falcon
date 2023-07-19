@@ -1,0 +1,61 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards justify-content-center align-content-center align-items-center">
+
+
+            <div class="col-lg-6">
+                <div class="row row-cards">
+
+                    <div class="col-12">
+                        <div class="card" style="max-height: 53rem">
+                            <div class="card-body card-body-scrollable card-body-scrollable-shadow">
+                                <div class="divide-y">
+
+                                    {% for l in logs reversed %}
+                                    <div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-truncate">
+                                                    {{l.texts}}
+                                                </div>
+                                                <div class="text-muted">{{l.added_date_time}}</div>
+                                            </div>
+                                            <!-- <div class="col-auto align-self-center its_new">
+                                                <div class="badge bg-primary"></div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                      
+                                    {% endfor %}
+
+                                    
+
+
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

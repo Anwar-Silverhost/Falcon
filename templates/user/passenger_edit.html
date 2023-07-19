@@ -1,0 +1,644 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+{% for i in passenger %}
+
+
+<div class="mx-auto" style="width:50%; margin-top: 25px;">
+    <div class="col-lg-12">
+        <h1 style="text-transform:uppercase;">{{i.surname}}/{{i.fullname}}, ID -
+            {{i.documentnumber}}</h1>
+    </div>
+</div>
+
+
+<div class="mx-auto" style="width:50%; margin-top: 15px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{% url 'passenger_checkin' i.id %}" class="btn btn-outline-dark w-100 "
+                        style="height: 50px;" onclick="addbagcard('{{i.id}}')">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-luggage" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z">
+                            </path>
+                            <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1"></path>
+                            <path d="M6 10h12"></path>
+                            <path d="M6 16h12"></path>
+                            <path d="M9 20v1"></path>
+                            <path d="M15 20v1"></path>
+                        </svg>
+                        Add Baggage
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{% url 'boarding_pass' i.id %}" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 5l0 2"></path>
+                            <path d="M15 11l0 2"></path>
+                            <path d="M15 17l0 2"></path>
+                            <path
+                                d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2">
+                            </path>
+                        </svg>
+                        Reprint Boarding Pass
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-2"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M8 9h8"></path>
+                            <path d="M8 13h6"></path>
+                            <path
+                                d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z">
+                            </path>
+                        </svg>
+                        Comments/SSR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="mx-auto" style="width:50%; margin-top: 1px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100 " style="height: 50px;" data-bs-toggle="modal"
+                        data-bs-target="#passenger_details-{{ i.id }}" data-id="{{ i.id }}">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                            <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
+                        </svg>
+                        Passenger Details
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 4m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v10a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z">
+                            </path>
+                            <path d="M9 10m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                            <path d="M15 8l2 0"></path>
+                            <path d="M15 12l2 0"></path>
+                            <path d="M7 16l10 0"></path>
+                        </svg>
+                        Passport / ID Details
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-booking"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                d="M4 18v-9.5a4.5 4.5 0 0 1 4.5 -4.5h7a4.5 4.5 0 0 1 4.5 4.5v7a4.5 4.5 0 0 1 -4.5 4.5h-9.5a2 2 0 0 1 -2 -2z">
+                            </path>
+                            <path d="M8 12h3.5a2 2 0 1 1 0 4h-3.5v-7a1 1 0 0 1 1 -1h1.5a2 2 0 1 1 0 4h-1.5"></path>
+                            <path d="M16 16l.01 0"></path>
+                        </svg>
+                        Booking Status
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M13 5h8"></path>
+                            <path d="M13 9h5"></path>
+                            <path d="M13 15h8"></path>
+                            <path d="M13 19h5"></path>
+                            <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                            </path>
+                            <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z">
+                            </path>
+                        </svg>
+                        Infant Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="mx-auto" style="width:50%; margin-top: 1px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{% url 'passenger_seat' i.id %}" class="btn btn-outline-dark w-100 " style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-armchair" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                d="M5 11a2 2 0 0 1 2 2v2h10v-2a2 2 0 1 1 4 0v4a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-4a2 2 0 0 1 2 -2z">
+                            </path>
+                            <path d="M5 11v-5a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v5"></path>
+                            <path d="M6 19v2"></path>
+                            <path d="M18 19v2"></path>
+                        </svg>
+                        Seating
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-sort-ascending-letters" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 10v-5c0 -1.38 .62 -2 2 -2s2 .62 2 2v5m0 -3h-4"></path>
+                            <path d="M19 21h-4l4 -7h-4"></path>
+                            <path d="M4 15l3 3l3 -3"></path>
+                            <path d="M7 6v12"></path>
+                        </svg>
+                        Class
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100 disabled" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 8h.01"></path>
+                            <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z">
+                            </path>
+                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"></path>
+                            <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"></path>
+                        </svg>
+                        Show Image
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mx-auto" style="width:50%; margin-top: 1px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="{% url 'passenger_checkin' i.id %}" class="btn btn-outline-dark w-100 "
+                        style="height: 50px;" onclick="addbagcard('{{i.id}}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-briefcase"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z">
+                            </path>
+                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+                            <path d="M12 12l0 .01"></path>
+                            <path d="M3 13a20 20 0 0 0 18 0"></path>
+                        </svg>
+                        Baggage
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;" data-bs-toggle="modal"
+                        data-bs-target="#modal-small">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-scale-outline"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 3m0 4a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z">
+                            </path>
+                            <path
+                                d="M12 7c1.956 0 3.724 .802 5 2.095l-2.956 2.904a3 3 0 0 0 -2.038 -.799a3 3 0 0 0 -2.038 .798l-2.956 -2.903a6.979 6.979 0 0 1 5 -2.095z">
+                            </path>
+                        </svg>
+                        Pax Weight
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-dark w-100" style="height: 50px;">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-article" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z">
+                            </path>
+                            <path d="M7 8h10"></path>
+                            <path d="M7 12h10"></path>
+                            <path d="M7 16h10"></path>
+                        </svg>
+                        View Log
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="mx-auto" style="width:75%; margin-top: 1px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-2 ">
+                <div
+                    class="col-6 col-sm-4 col-md-2 col-xl-auto py-3 text-end align-content-center justify-content-center mt-3">
+                    <h3>STATUS:</h3>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    {% if i.status == '1' or i.status == '100' %}
+                    <a href="#" class="btn btn-outline-dark w-100 disabled" style="height: 50px;">
+                        
+                        {% else %}
+                        <a href="#" class="btn btn-outline-dark w-100 " style="height: 50px;">
+
+                            {% endif %}
+
+                            Check-in
+                        </a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    {% if i.status == '1' %}
+                    <a href="#" class="btn btn-outline-dark w-100 " style="height: 50px;">
+                        {% else %}
+                    <a href="#" class="btn btn-outline-dark w-100 disabled" style="height: 50px;">
+
+                        {% endif %}
+                        Offload
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    {% if i.status == '1' %}
+                    <a href="{% url 'passanger_board' i.id %}" class="btn btn-outline-dark w-100" style="height: 50px;">
+                        {% else %}
+                    <a href="#" class="btn btn-outline-dark w-100 disabled" style="height: 50px;">
+                        {% endif %}
+                        Board
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    {% if i.status == '100' %}
+                    <a href="{% url 'passanger_deboard' i.id %}" class="btn btn-outline-dark w-100" style="height: 50px;">
+                        {% else %}
+                        <a href="#" class="btn btn-outline-dark w-100 disabled" style="height: 50px;">
+
+                    {% endif %}
+
+                        De-Board
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+                    <a href="#" class="btn btn-outline-danger w-100" style="height: 50px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 7l16 0"></path>
+                            <path d="M10 11l0 6"></path>
+                            <path d="M14 11l0 6"></path>
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal modal-blur fade" id="passenger_details-{{ i.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Check in - Edit Passenger Details - {{i.surname}}/{{i.fullname}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Company ID</label>
+                            <input type="text" class="form-control" name="example-text-input"
+                                value="{{i.documentnumber}}">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input type="text" class="form-control" name="example-text-input" value="{{i.surname}}">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="example-text-input" value="{{i.fullname}}">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Date OF Birth</label>
+                            <input type="date" class="form-control" name="example-text-input" value="">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <select class="form-control" name="" id="">
+                                <option value="" selected>{{i.gender}}</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 mt-2">
+                        <div class="mb-3">
+                            <div class="form-selectgroup-boxes row mb-3">
+                                <div class="col-lg-12">
+                                    <label class="form-selectgroup-item">
+
+                                        <input type="radio" name="report-type" value="1" class="form-selectgroup-input">
+                                        <span class="form-selectgroup-label d-flex align-items-center p-3">
+                                            <span class="me-3">
+                                                <span class="form-selectgroup-check"></span>
+                                            </span>
+                                            <span class="form-selectgroup-label-content">
+                                                <span class="form-selectgroup-title strong mb-1">Crew</span>
+
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <label class="form-label">Pax Type</label>
+                        <select name="" id="" class="form-control">
+                            <option value="" selected>Adult</option>
+                            <option value="">Child</option>
+                            <option value="">Infant</option>
+                            <option value="">Senior Citizen</option>
+                            <option value="">Student</option>
+                            <option value="">VIP</option>
+                            <option value="">VIP Student</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="mb-3">
+                            <label class="form-label">Group</label>
+                            <input type="text" class="form-control" name="example-text-input" value="">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3">
+                            <label class="form-label">Class</label>
+                            <select class="form-control" name="" id="">
+                                <option value="" selected>Y</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Destination</label>
+                            <select class="form-control" name="" id="">
+                                <option value="" selected>{{i.destination}}</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Final Destination</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Onward Flight</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">e-Ticket</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">PNR</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label">Destination Address</label>
+                            <input type="text" class="form-control" name="example-text-input">
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+
+                    OK
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-small" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-title">PAX Weight </div>
+
+
+
+                <form action="{% url 'checkin_addpassweight' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="id" id="" value="{{i.id}}" hidden>
+                    <input type="text" name="pass_weight" id="" class="form-control" value="{{i.pax_weight}}">
+                    <input type="text" name="edit" id="" value="EDIT" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success  me-auto">Update</button>
+                </form>
+
+
+
+
+
+
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancel</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+<script>
+    function addbagcard(id) {
+        //save key in to session storage to save sample value
+        sessionStorage.setItem('Bag', 'Yes');
+
+    }
+</script>
+
+
+<!-- // Save key-value pair to session storage
+sessionStorage.setItem('key', 'value');
+
+// Retrieve value from session storage
+var savedValue = sessionStorage.getItem('key');
+console.log(savedValue); // Output: 'value'
+
+// Remove key-value pair from session storage
+sessionStorage.removeItem('key'); -->
+
+
+
+{% endblock %}

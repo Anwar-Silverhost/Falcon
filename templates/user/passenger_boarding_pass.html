@@ -1,0 +1,107 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="page-body">
+    <div class="container-sm">
+        <div class="row row-deck  row-cards text-center justify-content-center align-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="card">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Seq No</th>
+                                                    <th>Surname</th>
+                                                    <th>Name</th>
+                                                    <th>Bags</th>
+                                                    <th>Seat</th>
+                                                    <th>Comment</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in passenger %}
+                                                <tr>
+                                                    <td>{{i.seq_no}}</td>
+                                                    <td>{{i.surname}}</td>
+                                                    <td>{{i.fullname}}</td>
+                                                    <td>{{i.bags}}</td>
+                                                    <td>{{i.seat_no}}</td>
+                                                    <td>{{i.special_notes}}</td>
+                                                </tr>
+                                                {% endfor %}
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <button class="btn btn-outline-github w-100">Add New Bags</button>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <button class="btn btn-outline-github w-100">Add Existing Bags</button>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <button class="btn btn-outline-github w-100">Change Seat</button>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <button class="btn btn-outline-github w-100">Add Comment / SSR</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <input type="checkbox" id="printCheckbox" onchange="handleCheckboxChange()"> Print Boarding Pass
+
+                        &nbsp;
+
+                       <a href="{% url 'passenger_boardingpass_collect_and_gotochekinpage' passenger2.id %}"> 
+                          
+                        <button class="btn btn-outline-green" >Finish</button>
+                       </a>
+   
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    function handleCheckboxChange() {
+      var checkbox = document.getElementById("printCheckbox");
+      if (checkbox.checked) {
+        chs = '{{passenger2.id}}';
+        window.location.href = "/boarding_pass/"+chs;
+      }
+    }
+  </script>
+
+
+
+
+
+{% endblock %}

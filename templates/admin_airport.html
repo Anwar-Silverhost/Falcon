@@ -1,0 +1,233 @@
+{% extends 'admin_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+
+                    <h2 class="page-title">
+                        Manage Airport
+                    </h2>
+                </div>
+                <!-- Page title actions -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-cards">
+                <div class="col-lg-8">
+                    <div class="card">
+
+
+
+                        <div class="table-responsive">
+                            <table class="table table-vcenter card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Airport</th>
+                                        <th>IATA</th>
+                                        <th>ICAO</th>
+
+                                        <th class="w-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in Airport %}
+                                    <tr>
+                                        <td>{{i.airport_name}}</td>
+                                        <td>{{i.iata_code}}</td>
+                                        <td>{{i.icao_code}}</td>
+                                    </tr>
+                                    {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form_ff">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="example-text-input"
+                                            placeholder="Enter IATA CODE / ICAO Code / Airport Name" id="finder"
+                                            pattern="[a-zA-Z]{3,}" title="Please enter at least three letters"
+                                            oninput="enableSearchButton()">
+                                    </div>
+                                    <div class="text-center mb-2">
+                                        <button class="btn btn-outline-primary" onclick="airportfind()"
+                                            id="searchButton" disabled>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2" hidden>
+                                    <h4>Airport Name : <span id="airport-name"></span></h4>
+                                    <h4>ICAO CODE : <span id="icao-code"></span></h4>
+                                    <h4>IATA CODE : <span id="iata-code"></span></h4>
+
+                                    <h5 style="color: red;">If for any reason the airport details you searched for are not correct, you can add them through the form below</h5>
+
+
+                                    <div class="text-center">
+                                        <button class="btn btn-outline-cyan" onclick="AirportSave()">Save</button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2 bn3 text-center" hidden>
+                                    <h3 style="color: red;">Entered IATA CODE / ICAO Code / Airport Name is Not in db.
+                                        Please Enter Manually</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h3>OR</h3>
+                        </div>
+
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{% url 'airport_save' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="airport_name" placeholder="Airport Name" required>
+                                    </div>
+                                    <div class="mb-3">
+
+                                        <input type="text" class="form-control" name="iata_code" placeholder="IATA Code" required>
+                                    </div>
+                                    <div class="mb-3">
+
+                                        <input type="text" class="form-control" name="icao_code" placeholder="ICAO Code" required>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-primary" type="submit">
+                                            Save
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function enableSearchButton() {
+        var input = document.getElementById("finder");
+        var searchButton = document.getElementById("searchButton");
+        if (input.value.length >= 3) {
+            searchButton.removeAttribute("disabled");
+        } else {
+            searchButton.setAttribute("disabled", "disabled");
+        }
+    }
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function airportfind() {
+        var find = document.getElementById("finder").value;
+        console.log("Value from input : " + find);
+        $.ajax({
+            type: "GET",
+            url: "{% url 'airport_validate' %}",
+            data: { "nick_name": find },
+            success: function (response) {
+                if (response.icao_code && response.iata_code && response.airport_name) {
+                    $("#icao-code").text(response.icao_code);
+                    $("#iata-code").text(response.iata_code);
+                    $("#airport-name").text(response.airport_name);
+                    $(".mb-2").removeAttr("hidden");
+                    $(".form_ff").hide();
+                    $(".bn3").hide();
+                } else {
+                    console.log('Incomplete data received.');
+                    $(".bn3").removeAttr("hidden");
+                    $(".form_ff").hide();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    };
+</script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function AirportSave() {
+        var icaoCode = $('#icao-code').text();
+        var iataCode = $('#iata-code').text();
+        var airportName = $('#airport-name').text();
+        var data = {
+            'icao_code': icaoCode,
+            'iata_code': iataCode,
+            'airport_name': airportName
+        };
+        $.ajax({
+            url: "{% url 'airport_save_ajax' %}",  
+            type: 'POST',
+            data: data,
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", getCSRFToken()); 
+            },
+            success: function (response) {
+                console.log(response);
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+    function getCSRFToken() {
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken='))
+            .split('=')[1];
+        return cookieValue;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

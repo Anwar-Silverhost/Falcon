@@ -1,0 +1,346 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">
+                        Edit Passengers
+                    </h2>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+
+
+
+
+
+                        <span class="d-none d-sm-inline">
+
+                            <button class="btn btn-outline-bitbucket w-100 mb-3" data-bs-toggle="modal"
+                                data-bs-target="#modal-report">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                    <path d="M16 19h6"></path>
+                                    <path d="M19 16v6"></path>
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                </svg>
+                                Add Person</button>
+
+                        </span>
+                        <span class="d-none d-sm-inline">
+                            <button class="btn btn-outline-flickr w-100 mb-3" data-bs-toggle="modal"
+                                data-bs-target="#modal-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-import"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path
+                                        d="M5 13v-8a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5.5m-9.5 -2h7m-3 -3l3 3l-3 3">
+                                    </path>
+                                </svg>
+                                Import</button>
+                        </span>
+                        <span class="d-none d-sm-inline">
+                            <button class="btn btn-outline-tabler w-100 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path
+                                        d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3">
+                                    </path>
+                                </svg>
+                                Export</button>
+                        </span>
+                        <span class="d-none d-sm-inline">
+                            <button class="btn btn-outline-primary w-100 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-file-function" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                    </path>
+                                    <path
+                                        d="M10.5 17h.333c.474 0 .87 -.323 .916 -.746l.502 -4.508c.047 -.423 .443 -.746 .916 -.746h.333">
+                                    </path>
+                                    <path d="M10.5 14h3"></path>
+                                </svg>
+                                Betch Function</button>
+                        </span>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-cards">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-vcenter card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Surname</th>
+                                        <th>Name</th>
+                                        <th>Sex</th>
+                                        <th>Type</th>
+                                        <th>Destination</th>
+                                        <th>Seat</th>
+                                        <th>Passport</th>
+                                        <th class="w-1"></th>
+                                        <th class="w-0"></th>
+                                        <th class="w-1"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for i in passenger %}
+                                    <tr>
+                                        <td>{{i.surname}}</td>
+                                        <td>{{i.fullname}}</td>
+                                        <td>{{i.gender}}</td>
+                                        <td>{{i.type}}</td>
+                                        <td>{{i.destination}}</td>
+                                        <td>{{i.seat_no}}</td>
+                                        <td>{{i.passport_number}}</td>
+                                        <td><a href="{% url 'passenger_edit' i.id %}">Edit</a>
+                                        </td>
+                                        <td><a href="#">Change Flight</a></td>
+                                        <td><a href="#">Delete</a></td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<div class="modal modal-blur fade" id="modal-success" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-success"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-green icon-lg" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3"></path>
+                    <path d="M4 6v6c0 1.657 3.582 3 8 3c.856 0 1.68 -.05 2.454 -.144m5.546 -2.856v-6"></path>
+                    <path d="M4 12v6c0 1.657 3.582 3 8 3c.171 0 .341 -.002 .51 -.006"></path>
+                    <path d="M19 22v-6"></path>
+                    <path d="M22 19l-3 -3l-3 3"></path>
+                </svg>
+                <h3>Import File</h3>
+
+                <form id="myForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <input type="text" hidden value="{{flight_id.id}}" name="flight_chart_id">
+                        <input type="file" class="form-control" id="file-import" name="file-import" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Person</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">SurName</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <select class="form-select">
+                                <option value="M" selected>Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="mb-3">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control" value="{{flight_id.arrival_airport_to.iata_code}}">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary ms-auto" >
+                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M5 12l14 0" />
+                    </svg>
+                    Create new report
+
+
+
+                   
+                </a>
+                <a href="#" class="btn btn-link link-secondary " data-bs-dismiss="modal">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myForm').submit(function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            var formData = new FormData(this); // Create FormData object with form data
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val() // Include the CSRF token in the request headers
+                }
+            });
+
+            $.ajax({
+                url: "{% url 'import_file' %}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors here
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

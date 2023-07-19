@@ -1,0 +1,1138 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+<style>
+    #seat_s button {
+        width: 50px;
+    }
+</style>
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="card mb-3">
+                    <div class="col-12">
+                        <div class="card bg-indigo text-primary-fg">
+                            <div class="card-stamp">
+                                <div class="card-stamp-icon bg-white text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-plane-tilt" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M14.5 6.5l3 -2.9a2.05 2.05 0 0 1 2.9 2.9l-2.9 3l2.5 7.5l-2.5 2.55l-3.5 -6.55l-3 3v3l-2 2l-1.5 -4.5l-4.5 -1.5l2 -2h3l3 -3l-6.5 -3.5l2.5 -2.5l7.5 2.5z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4 class="card-title">
+                                            {{flight.aircraft_reg.name}} |
+                                            {{flight.flight_number }}</h4>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <h5 class="card-title">
+                                            {{flight.departure_date }}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6 class="card-text mb-0">
+                                            {{flight.departure_airport_from.airport_name}}
+                                        </h6>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <h6 class="card-text mb-0 overflow-hidden">
+                                            {{flight.arrival_airport_to.airport_name}}
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="card-text" style="font-size: 20px; font-weight: bold;">
+                                            {{flight.departure_airport_from.iata_code}}
+                                        </p>
+                                    </div>
+                                    <div class="col-4 text-center mt-1">--------
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-plane" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none">
+                                            </path>
+                                            <path
+                                                d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z">
+                                            </path>
+                                        </svg> --------
+                                    </div>
+                                    <div class="col-4 text-end">
+
+                                        <p class="card-text" style="font-size: 20px; font-weight: bold;">
+                                            {{flight.arrival_airport_to.iata_code}}
+                                        </p>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="card-text">
+                                            {{flight.departure_time|time:"h:i A" }}
+                                        </p>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <p class="card-text">
+                                            {{flight.arrival_time|time:"h:i A" }}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-1">
+                <div class="mb-3">
+                    <div>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" name="checkboxGroup"
+                                onclick="handleCheckboxSelection(this) ; myFunction();" checked>
+                            <span class="form-check-label">Not Checking</span>
+                        </label>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" name="checkboxGroup"
+                                onclick="handleCheckboxSelection(this)" id="checkinin">
+                            <span class="form-check-label">Check-in</span>
+                        </label>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" name="checkboxGroup"
+                                onclick="handleCheckboxSelection(this)">
+                            <span class="form-check-label">All</span>
+                        </label>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" name="checkboxGroup"
+                                onclick="handleCheckboxSelection(this)">
+                            <span class="form-check-label">Standby</span>
+                        </label>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" name="checkboxGroup"
+                                onclick="handleCheckboxSelection(this)">
+                            <span class="form-check-label">Waitlist</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <div class="mb-3">
+                    <label for="" class="form-label">Filter</label>
+                    <input type="text" name="" class="form-control" id="searchInput">
+
+                </div>
+
+                <div class="card-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center text-center justify-content-center ">
+                            <div class="col">
+                                <span class="bg-danger-lt text-white avatar w-100">
+                                    {{flight.flight_passengers_to_check_in}}
+
+                                </span>
+                                <div class="font-weight-medium">
+                                    To Check-in
+                                </div>
+                            </div>
+                            <div class="col float-end">
+                                <span class="bg-success-lt text-white avatar w-100">
+                                    {{flight.flight_passengers_check_in}}
+                                </span>
+                                <div class="font-weight-medium">
+                                    Checked-in
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-5">
+                <div class="card" style="background-color: rgba(255, 255, 255, 0);border: 0ch;">
+                    <div class="card-body">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="#" class="btn btn-outline-dark w-100">
+                                    Assign To Flight
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="{% url 'flight_Passengers_Crew' flight.id %}"
+                                    class="btn btn-outline-dark w-100">
+                                    Add Passenger
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="#" class="btn btn-outline-dark w-100">
+                                    Find Passenger
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a class="btn btn-outline-dark w-100" data-bs-toggle="modal"
+                                    data-bs-target="#modal-scrollable">
+                                    View Seat Map
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="{% url 'flight_reports' flight.id %}" class="btn btn-outline-dark w-100">
+                                    Flight Report
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="#" class="btn btn-outline-dark w-100">
+                                    Update Flight Status
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="#" class="btn btn-outline-dark w-100">
+                                    Flight Admin
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="#" class="btn btn-outline-dark w-100">
+                                    Back to Main Menu
+                                </a>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 mb-1">
+                                <a href="/check_in" class="btn btn-outline-dark w-100">
+                                    Exit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal modal-sm modal-blur fade" id="modal-scrollable" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body" id="seat_s">
+
+                        {% for fs in fly_seat %}
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_1A == '0' %}
+                                <button class="btn btn-outline-github">1A</button>
+                                {% else %}
+                                <button class="btn btn-success">1A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_1B == 0 %}
+                                <button class="btn btn-outline-github">1B</button>
+                                {% else %}
+                                <button class="btn btn-success">1B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_1C == '0' %}
+                                <button class="btn btn-outline-github">1C</button>
+                                {% else %}
+                                <button class="btn btn-success">1C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_1D == '0' %}
+                                <button class="btn btn-outline-github">1D</button>
+                                {% else %}
+                                <button class="btn btn-success">1D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_2A == '0' %}
+                                <button class="btn btn-outline-github">2A</button>
+                                {% else %}
+                                <button class="btn btn-success">2A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_2B == '0' %}
+                                <button class="btn btn-outline-github">2B</button>
+                                {% else %}
+                                <button class="btn btn-success">2B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_2C == '0' %}
+                                <button class="btn btn-outline-github">2C</button>
+                                {% else %}
+                                <button class="btn btn-success">2C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_2D == '0' %}
+                                <button class="btn btn-outline-github">2D</button>
+                                {% else %}
+                                <button class="btn btn-success">2D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_3A == '0' %}
+                                <button class="btn btn-outline-github">3A</button>
+                                {% else %}
+                                <button class="btn btn-success">3A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_3B == '0' %}
+                                <button class="btn btn-outline-github">3B</button>
+                                {% else %}
+                                <button class="btn btn-success">3B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_3C == '0' %}
+                                <button class="btn btn-outline-github">3C</button>
+                                {% else %}
+                                <button class="btn btn-success">3C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_3D == '0' %}
+                                <button class="btn btn-outline-github">3D</button>
+                                {% else %}
+                                <button class="btn btn-success">3D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_4A == '0' %}
+                                <button class="btn btn-outline-github">4A</button>
+                                {% else %}
+                                <button class="btn btn-success">4A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_4B == '0' %}
+                                <button class="btn btn-outline-github">4B</button>
+                                {% else %}
+                                <button class="btn btn-success">4B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_4C == '0' %}
+                                <button class="btn btn-outline-github">4C</button>
+                                {% else %}
+                                <button class="btn btn-success">4C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_4D == '0' %}
+                                <button class="btn btn-outline-github">4D</button>
+                                {% else %}
+                                <button class="btn btn-success">4D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_5A == '0' %}
+                                <button class="btn btn-outline-github">5A</button>
+                                {% else %}
+                                <button class="btn btn-success">5A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_5B == '0' %}
+                                <button class="btn btn-outline-github">5B</button>
+                                {% else %}
+                                <button class="btn btn-success">5B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_5C == '0' %}
+                                <button class="btn btn-outline-github">5C</button>
+                                {% else %}
+                                <button class="btn btn-success">5C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_5D == '0' %}
+                                <button class="btn btn-outline-github">5D</button>
+                                {% else %}
+                                <button class="btn btn-success">5D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_6A == '0' %}
+                                <button class="btn btn-outline-github">6A</button>
+                                {% else %}
+                                <button class="btn btn-success">6A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_6B == '0' %}
+                                <button class="btn btn-outline-github">6B</button>
+                                {% else %}
+                                <button class="btn btn-success">6B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_6C == '0' %}
+                                <button class="btn btn-outline-github">6C</button>
+                                {% else %}
+                                <button class="btn btn-success">6C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_6D == '0' %}
+                                <button class="btn btn-outline-github">6D</button>
+                                {% else %}
+                                <button class="btn btn-success">6D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_7A == '0' %}
+                                <button class="btn btn-outline-github">7A</button>
+                                {% else %}
+                                <button class="btn btn-success">7A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_7B == '0' %}
+                                <button class="btn btn-outline-github">7B</button>
+                                {% else %}
+                                <button class="btn btn-success">7B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_7C == '0' %}
+                                <button class="btn btn-outline-github">7C</button>
+                                {% else %}
+                                <button class="btn btn-success">7C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_7D == '0' %}
+                                <button class="btn btn-outline-github">7D</button>
+                                {% else %}
+                                <button class="btn btn-success">7D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_8A == '0' %}
+                                <button class="btn btn-outline-github">8A</button>
+                                {% else %}
+                                <button class="btn btn-success">8A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_8B == '0' %}
+                                <button class="btn btn-outline-github">8B</button>
+                                {% else %}
+                                <button class="btn btn-success">8B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_8C == '0' %}
+                                <button class="btn btn-outline-github">8C</button>
+                                {% else %}
+                                <button class="btn btn-success">8C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_8D == '0' %}
+                                <button class="btn btn-outline-github">8D</button>
+                                {% else %}
+                                <button class="btn btn-success">8D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_9A == '0' %}
+                                <button class="btn btn-outline-github">9A</button>
+                                {% else %}
+                                <button class="btn btn-success">9A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_9B == '0' %}
+                                <button class="btn btn-outline-github">9B</button>
+                                {% else %}
+                                <button class="btn btn-success">9B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_9C == '0' %}
+                                <button class="btn btn-outline-github">9C</button>
+                                {% else %}
+                                <button class="btn btn-success">9C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_9D == '0' %}
+                                <button class="btn btn-outline-github">9D</button>
+                                {% else %}
+                                <button class="btn btn-success">9D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_10A == '0' %}
+                                <button class="btn btn-outline-github">10A</button>
+                                {% else %}
+                                <button class="btn btn-success">10A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_10B == '0' %}
+                                <button class="btn btn-outline-github">10B</button>
+                                {% else %}
+                                <button class="btn btn-success">10B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_10C == '0' %}
+                                <button class="btn btn-outline-github">10C</button>
+                                {% else %}
+                                <button class="btn btn-success">10C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_10D == '0' %}
+                                <button class="btn btn-outline-github">10D</button>
+                                {% else %}
+                                <button class="btn btn-success">10D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_11A == '0' %}
+                                <button class="btn btn-outline-github">11A</button>
+                                {% else %}
+                                <button class="btn btn-success">11A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_11B == '0' %}
+                                <button class="btn btn-outline-github">11B</button>
+                                {% else %}
+                                <button class="btn btn-success">11B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_11C == '0' %}
+                                <button class="btn btn-outline-github">11C</button>
+                                {% else %}
+                                <button class="btn btn-success">11C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_11D == '0' %}
+                                <button class="btn btn-outline-github">11D</button>
+                                {% else %}
+                                <button class="btn btn-success">11D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_12A == '0' %}
+                                <button class="btn btn-outline-github">12A</button>
+                                {% else %}
+                                <button class="btn btn-success">12A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_12B == '0' %}
+                                <button class="btn btn-outline-github">12B</button>
+                                {% else %}
+                                <button class="btn btn-success">12B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_12C == '0' %}
+                                <button class="btn btn-outline-github">12C</button>
+                                {% else %}
+                                <button class="btn btn-success">12C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_12D == '0' %}
+                                <button class="btn btn-outline-github">12D</button>
+                                {% else %}
+                                <button class="btn btn-success">12D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_13A == '0' %}
+                                <button class="btn btn-outline-github">13A</button>
+                                {% else %}
+                                <button class="btn btn-success">13A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_13B == '0' %}
+                                <button class="btn btn-outline-github">13B</button>
+                                {% else %}
+                                <button class="btn btn-success">13B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_13C == '0' %}
+                                <button class="btn btn-outline-github">13C</button>
+                                {% else %}
+                                <button class="btn btn-success">13C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_13D == '0' %}
+                                <button class="btn btn-outline-github">13D</button>
+                                {% else %}
+                                <button class="btn btn-success">13D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_14A == '0' %}
+                                <button class="btn btn-outline-github">14A</button>
+                                {% else %}
+                                <button class="btn btn-success">14A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_14B == '0' %}
+                                <button class="btn btn-outline-github">14B</button>
+                                {% else %}
+                                <button class="btn btn-success">14B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_14C == '0' %}
+                                <button class="btn btn-outline-github">14C</button>
+                                {% else %}
+                                <button class="btn btn-success">14C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_14D == '0' %}
+                                <button class="btn btn-outline-github">14D</button>
+                                {% else %}
+                                <button class="btn btn-success">14D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_15A == '0' %}
+                                <button class="btn btn-outline-github">15A</button>
+                                {% else %}
+                                <button class="btn btn-success">15A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_15B == '0' %}
+                                <button class="btn btn-outline-github">15B</button>
+                                {% else %}
+                                <button class="btn btn-success">15B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_15C == '0' %}
+                                <button class="btn btn-outline-github">15C</button>
+                                {% else %}
+                                <button class="btn btn-success">15C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_15D == '0' %}
+                                <button class="btn btn-outline-github">15D</button>
+                                {% else %}
+                                <button class="btn btn-success">15D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_16A == '0' %}
+                                <button class="btn btn-outline-github">16A</button>
+                                {% else %}
+                                <button class="btn btn-success">16A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_16B == '0' %}
+                                <button class="btn btn-outline-github">16B</button>
+                                {% else %}
+                                <button class="btn btn-success">16B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_16C == '0' %}
+                                <button class="btn btn-outline-github">16C</button>
+                                {% else %}
+                                <button class="btn btn-success">16C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_16D == '0' %}
+                                <button class="btn btn-outline-github">16D</button>
+                                {% else %}
+                                <button class="btn btn-success">16D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_17A == '0' %}
+                                <button class="btn btn-outline-github">17A</button>
+                                {% else %}
+                                <button class="btn btn-success">17A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_17B == '0' %}
+                                <button class="btn btn-outline-github">17B</button>
+                                {% else %}
+                                <button class="btn btn-success">17B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_17C == '0' %}
+                                <button class="btn btn-outline-github">17C</button>
+                                {% else %}
+                                <button class="btn btn-success">17C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_17D == '0' %}
+                                <button class="btn btn-outline-github">17D</button>
+                                {% else %}
+                                <button class="btn btn-success">17D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_18A == '0' %}
+                                <button class="btn btn-outline-github">18A</button>
+                                {% else %}
+                                <button class="btn btn-success">18A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_18B == '0' %}
+                                <button class="btn btn-outline-github">18B</button>
+                                {% else %}
+                                <button class="btn btn-success">18B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_18C == '0' %}
+                                <button class="btn btn-outline-github">18C</button>
+                                {% else %}
+                                <button class="btn btn-success">18C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_18D == '0' %}
+                                <button class="btn btn-outline-github">18D</button>
+                                {% else %}
+                                <button class="btn btn-success">18D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_19A == '0' %}
+                                <button class="btn btn-outline-github">19A</button>
+                                {% else %}
+                                <button class="btn btn-success">19A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_19B == '0' %}
+                                <button class="btn btn-outline-github">19B</button>
+                                {% else %}
+                                <button class="btn btn-success">19B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_19C == '0' %}
+                                <button class="btn btn-outline-github">19C</button>
+                                {% else %}
+                                <button class="btn btn-success">19C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_19D == '0' %}
+                                <button class="btn btn-outline-github">19D</button>
+                                {% else %}
+                                <button class="btn btn-success">19D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {% if fs.s_20A == '0' %}
+                                <button class="btn btn-outline-github">20A</button>
+                                {% else %}
+                                <button class="btn btn-success">20A</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_20B == '0' %}
+                                <button class="btn btn-outline-github">20B</button>
+                                {% else %}
+                                <button class="btn btn-success">20B</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            <div class="col">
+                                {% if fs.s_20C == '0' %}
+                                <button class="btn btn-outline-github">20C</button>
+                                {% else %}
+                                <button class="btn btn-success">20C</button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if fs.s_20D == '0' %}
+                                <button class="btn btn-outline-github">20D</button>
+                                {% else %}
+                                <button class="btn btn-success">20D</button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter text-nowrap datatable mainw table-striped">
+                                <thead>
+                                    <tr>
+                                        <th hidden>Document</th>
+                                        <th hidden>Check-in</th>
+                                        <th>Sq</th>
+                                        <th>Surname</th>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Type</th>
+                                        <th>Class</th>
+                                        <th>Seat</th>
+                                        <th>Pax Wt (Kg)</th>
+                                        <th>Bags</th>
+                                        <th>Bag Wt (Kg)</th>
+                                        <th>Hand (Kg)</th>
+                                        <th>Final Destination</th>
+                                        <th class="w-0">Comments</th>
+                                        <th class="w-1"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in flight_pass %}
+                                    <tr>
+                                        <td hidden>{{i.documentnumber}}</td>
+                                        <td hidden>{{i.check_in}}</td>
+                                        <td>{{i.seq_no}}</td>
+                                        <td>{{i.surname}}</td>
+                                        <td>{{i.fullname}}</td>
+                                        <td>{{i.gender}}</td>
+                                        <td>{{i.pax_type|default:"" }}</td>
+                                        <td>{{i.seat_class|default:"" }}</td>
+                                        <td>{{i.seat_no|default:"" }}</td>
+                                        <td>{{i.pax_weight|default:"" }}</td>
+                                        <td>{{i.bags|default:"" }}</td>
+                                        <td>{{i.bag_weight|default:"" }}</td>
+                                        <td>{{i.hand_bag|default:"" }}</td>
+                                        <td>{{i.destination|default:"" }}</td>
+                                        <td><a href="">
+                                                <button class="btn bg-dribbble-lt ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-mail m-0" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path
+                                                            d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z">
+                                                        </path>
+                                                        <path d="M3 7l9 6l9 -6"></path>
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {% if i.check_in == '1' %}
+                                            <a href="#" class="btn bg-red-lt">Check-Out</a>
+                                            {% else %}
+                                            <a href="{% url 'passenger_checkin' i.id %}"
+                                                class="btn bg-lime-lt">Check-in</a>
+                                            {% endif %}
+
+
+
+                                            <a href="{% url 'passenger_edit' i.id %}" class="btn bg-primary-lt">Edit
+                                                Pax</a>
+                                            <a href="#" class="btn bg-youtube-lt">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Get the search input element
+        var searchInput = $("#searchInput");
+
+        // Get the table element
+        var table = $("#table");
+
+        // Listen for keyup events on the search input
+        searchInput.on("keyup", function () {
+            // Get the search term
+            var searchTerm = searchInput.val();
+
+            // Filter the table rows based on the search term
+            table.find("tr").each(function () {
+                var rowText = $(this).text();
+
+                // If the row text contains the search term, show the row
+                if (rowText.indexOf(searchTerm) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+    function handleCheckboxSelection(checkbox) {
+        var checkboxes = document.getElementsByName('checkboxGroup');
+        var tableRows = document.querySelectorAll('.table tbody tr');
+
+        checkboxes.forEach(function (currentCheckbox) {
+            if (currentCheckbox !== checkbox) {
+                currentCheckbox.checked = false;
+            }
+        });
+
+        if (checkbox.id === 'checkinin') {
+            tableRows.forEach(function (row) {
+                var checkInCell = row.querySelector('td:nth-child(2)');
+                if (checkInCell.textContent === '1') {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        } else {
+            tableRows.forEach(function (row) {
+                row.style.display = 'table-row';
+            });
+        }
+    }
+</script>
+
+<script>
+    function myFunction() {
+        var tableRows = document.querySelectorAll('.table tbody tr');
+        tableRows.forEach(function (row) {
+            var checkInCell = row.querySelector('td:nth-child(2)');
+            if (checkInCell.textContent === '0' || checkInCell.textContent === '') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+
+<script>
+    var tableRows = document.querySelectorAll('.table tbody tr');
+    tableRows.forEach(function (row) {
+        var checkInCell = row.querySelector('td:nth-child(2)');
+        if (checkInCell.textContent === '0' || checkInCell.textContent === '') {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+</script>
+
+
+
+<!-- <script>
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('.datatable tbody tr');
+
+    searchInput.addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+
+        tableRows.forEach(function (row) {
+            const a2 = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+            const a1 = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const a = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            const b = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+            const c = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+            const d = row.querySelector('td:nth-child(6)').textContent.toLowerCase();
+            const e = row.querySelector('td:nth-child(7)').textContent.toLowerCase();
+            const f = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
+            
+
+
+            if (a2.includes(query) || a1.includes(query) || a.includes(query) || b.includes(query) || c.includes(query) || d.includes(query) || e.includes(query) || f.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script> -->
+
+
+
+
+
+
+{% endblock %}

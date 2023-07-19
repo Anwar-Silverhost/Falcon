@@ -1,0 +1,1567 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    #seat_s button {
+        width: 40px;
+    }
+
+    .no-pointer {
+        pointer-events: none;
+    }
+</style>
+
+
+
+
+<div class="page-body" id="Seatpage">
+
+
+    <div class="container-sm">
+        <div class="row row-deck  row-cards text-center justify-content-center align-content-center">
+            <div class="col-lg-2" id="booked_seats_table">
+                <div class="card" id="seat_s">
+                    <div class="card-body">
+
+                        <input type="text" name="" id="pass_id_frwd" value="{{passenger.id}}" hidden>
+
+                        {% for i in f_seat %}
+
+                        <!-- 1 -->
+                        <div class="row mb-2">
+                            {% if i.s_1A == '0' %}
+                            <div class="col">
+                                <button id="button_1A" class="btn btn-outline-github">1A</button>
+                            </div>
+                            {% elif i.s_1A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">1A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">1A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_1B == '0' %}
+                            <div class="col">
+                                <button id="button_1B" class="btn btn-outline-github">1B</button>
+                            </div>
+                            {% elif i.s_1B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">1B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">1B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_1C == '0' %}
+                            <div class="col">
+                                <button id="button_1C" class="btn btn-outline-github">1C</button>
+                            </div>
+                            {% elif i.s_1C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">1C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">1C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_1D == '0' %}
+                            <div class="col">
+                                <button id="button_1D" class="btn btn-outline-github">1D</button>
+                            </div>
+                            {% elif i.s_1D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">1D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">1D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 2 -->
+                        <div class="row mb-2">
+                            {% if i.s_2A == '0' %}
+                            <div class="col">
+                                <button id="button_2A" class="btn btn-outline-github">2A</button>
+                            </div>
+                            {% elif i.s_2A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">2A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">2A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_2B == '0' %}
+                            <div class="col">
+                                <button id="button_2B" class="btn btn-outline-github">2B</button>
+                            </div>
+                            {% elif i.s_2B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">2B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">2B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_2C == '0' %}
+                            <div class="col">
+                                <button id="button_2C" class="btn btn-outline-github">2C</button>
+                            </div>
+                            {% elif i.s_2C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">2C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">2C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_2D == '0' %}
+                            <div class="col">
+                                <button id="button_2D" class="btn btn-outline-github">2D</button>
+                            </div>
+                            {% elif i.s_2D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">2D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">2D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 3 -->
+                        <div class="row mb-2">
+                            {% if i.s_3A == '0' %}
+                            <div class="col">
+                                <button id="button_3A" class="btn btn-outline-github">3A</button>
+                            </div>
+                            {% elif i.s_3A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">3A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">3A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_3B == '0' %}
+                            <div class="col">
+                                <button id="button_3B" class="btn btn-outline-github">3B</button>
+                            </div>
+                            {% elif i.s_3B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">3B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">3B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_3C == '0' %}
+                            <div class="col">
+                                <button id="button_3C" class="btn btn-outline-github">3C</button>
+                            </div>
+                            {% elif i.s_3C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">3C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">3C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_3D == '0' %}
+                            <div class="col">
+                                <button id="button_3D" class="btn btn-outline-github">3D</button>
+                            </div>
+                            {% elif i.s_3D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">3D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">3D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 4 -->
+                        <div class="row mb-2">
+                            {% if i.s_4A == '0' %}
+                            <div class="col">
+                                <button id="button_4A" class="btn btn-outline-github">4A</button>
+                            </div>
+                            {% elif i.s_4A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">4A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">4A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_4B == '0' %}
+                            <div class="col">
+                                <button id="button_4B" class="btn btn-outline-github">4B</button>
+                            </div>
+                            {% elif i.s_4B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">4B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">4B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_4C == '0' %}
+                            <div class="col">
+                                <button id="button_4C" class="btn btn-outline-github">4C</button>
+                            </div>
+                            {% elif i.s_4C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">4C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">4C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_4D == '0' %}
+                            <div class="col">
+                                <button id="button_4D" class="btn btn-outline-github">4D</button>
+                            </div>
+                            {% elif i.s_4D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">4D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">4D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 5 -->
+                        <div class="row mb-2">
+                            {% if i.s_5A == '0' %}
+                            <div class="col">
+                                <button id="button_5A" class="btn btn-outline-github">5A</button>
+                            </div>
+                            {% elif i.s_5A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">5A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">5A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_5B == '0' %}
+                            <div class="col">
+                                <button id="button_5B" class="btn btn-outline-github">5B</button>
+                            </div>
+                            {% elif i.s_5B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">5B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">5B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_5C == '0' %}
+                            <div class="col">
+                                <button id="button_5C" class="btn btn-outline-github">5C</button>
+                            </div>
+                            {% elif i.s_5C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">5C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">5C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_5D == '0' %}
+                            <div class="col">
+                                <button id="button_5D" class="btn btn-outline-github">5D</button>
+                            </div>
+                            {% elif i.s_5D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">5D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">5D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 6 -->
+                        <div class="row mb-2">
+                            {% if i.s_6A == '0' %}
+                            <div class="col">
+                                <button id="button_6A" class="btn btn-outline-github">6A</button>
+                            </div>
+                            {% elif i.s_6A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">6A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">6A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_6B == '0' %}
+                            <div class="col">
+                                <button id="button_6B" class="btn btn-outline-github">6B</button>
+                            </div>
+                            {% elif i.s_6B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">6B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">6B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_6C == '0' %}
+                            <div class="col">
+                                <button id="button_6C" class="btn btn-outline-github">6C</button>
+                            </div>
+                            {% elif i.s_6C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">6C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">6C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_6D == '0' %}
+                            <div class="col">
+                                <button id="button_6D" class="btn btn-outline-github">6D</button>
+                            </div>
+                            {% elif i.s_6D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">6D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">6D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 7 -->
+                        <div class="row mb-2">
+                            {% if i.s_7A == '0' %}
+                            <div class="col">
+                                <button id="button_7A" class="btn btn-outline-github">7A</button>
+                            </div>
+                            {% elif i.s_7A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">7A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">7A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_7B == '0' %}
+                            <div class="col">
+                                <button id="button_7B" class="btn btn-outline-github">7B</button>
+                            </div>
+                            {% elif i.s_7B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">7B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">7B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_7C == '0' %}
+                            <div class="col">
+                                <button id="button_7C" class="btn btn-outline-github">7C</button>
+                            </div>
+                            {% elif i.s_7C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">7C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">7C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_7D == '0' %}
+                            <div class="col">
+                                <button id="button_7D" class="btn btn-outline-github">7D</button>
+                            </div>
+                            {% elif i.s_7D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">7D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">7D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 8 -->
+                        <div class="row mb-2">
+                            {% if i.s_8A == '0' %}
+                            <div class="col">
+                                <button id="button_8A" class="btn btn-outline-github">8A</button>
+                            </div>
+                            {% elif i.s_8A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">8A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">8A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_8B == '0' %}
+                            <div class="col">
+                                <button id="button_8B" class="btn btn-outline-github">8B</button>
+                            </div>
+                            {% elif i.s_8B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">8B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">8B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_8C == '0' %}
+                            <div class="col">
+                                <button id="button_8C" class="btn btn-outline-github">8C</button>
+                            </div>
+                            {% elif i.s_8C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">8C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">8C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_8D == '0' %}
+                            <div class="col">
+                                <button id="button_8D" class="btn btn-outline-github">8D</button>
+                            </div>
+                            {% elif i.s_8D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">8D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">8D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 9 -->
+                        <div class="row mb-2">
+                            {% if i.s_9A == '0' %}
+                            <div class="col">
+                                <button id="button_9A" class="btn btn-outline-github">9A</button>
+                            </div>
+                            {% elif i.s_9A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">9A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">9A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_9B == '0' %}
+                            <div class="col">
+                                <button id="button_9B" class="btn btn-outline-github">9B</button>
+                            </div>
+                            {% elif i.s_9B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">9B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">9B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_9C == '0' %}
+                            <div class="col">
+                                <button id="button_9C" class="btn btn-outline-github">9C</button>
+                            </div>
+                            {% elif i.s_9C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">9C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">9C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_9D == '0' %}
+                            <div class="col">
+                                <button id="button_9D" class="btn btn-outline-github">9D</button>
+                            </div>
+                            {% elif i.s_9D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">9D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">9D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 10 -->
+                        <div class="row mb-2">
+                            {% if i.s_10A == '0' %}
+                            <div class="col">
+                                <button id="button_10A" class="btn btn-outline-github">10A</button>
+                            </div>
+                            {% elif i.s_10A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">10A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">10A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_10B == '0' %}
+                            <div class="col">
+                                <button id="button_10B" class="btn btn-outline-github">10B</button>
+                            </div>
+                            {% elif i.s_10B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">10B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">10B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_10C == '0' %}
+                            <div class="col">
+                                <button id="button_10C" class="btn btn-outline-github">10C</button>
+                            </div>
+                            {% elif i.s_10C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">10C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">10C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_10D == '0' %}
+                            <div class="col">
+                                <button id="button_10D" class="btn btn-outline-github">10D</button>
+                            </div>
+                            {% elif i.s_10D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">10D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">10D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 11 -->
+                        <div class="row mb-2">
+                            {% if i.s_11A == '0' %}
+                            <div class="col">
+                                <button id="button_11A" class="btn btn-outline-github">11A</button>
+                            </div>
+                            {% elif i.s_11A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">11A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">11A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_11B == '0' %}
+                            <div class="col">
+                                <button id="button_11B" class="btn btn-outline-github">11B</button>
+                            </div>
+                            {% elif i.s_11B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">11B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">11B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_11C == '0' %}
+                            <div class="col">
+                                <button id="button_11C" class="btn btn-outline-github">11C</button>
+                            </div>
+                            {% elif i.s_11C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">11C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">11C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_11D == '0' %}
+                            <div class="col">
+                                <button id="button_11D" class="btn btn-outline-github">11D</button>
+                            </div>
+                            {% elif i.s_11D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">11D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">11D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 12 -->
+                        <div class="row mb-2">
+                            {% if i.s_12A == '0' %}
+                            <div class="col">
+                                <button id="button_12A" class="btn btn-outline-github">12A</button>
+                            </div>
+                            {% elif i.s_12A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">12A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">12A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_12B == '0' %}
+                            <div class="col">
+                                <button id="button_12B" class="btn btn-outline-github">12B</button>
+                            </div>
+                            {% elif i.s_12B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">12B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">12B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_12C == '0' %}
+                            <div class="col">
+                                <button id="button_12C" class="btn btn-outline-github">12C</button>
+                            </div>
+                            {% elif i.s_12C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">12C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">12C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_12D == '0' %}
+                            <div class="col">
+                                <button id="button_12D" class="btn btn-outline-github">12D</button>
+                            </div>
+                            {% elif i.s_12D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">12D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">12D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 13 -->
+                        <div class="row mb-2">
+                            {% if i.s_13A == '0' %}
+                            <div class="col">
+                                <button id="button_13A" class="btn btn-outline-github">13A</button>
+                            </div>
+                            {% elif i.s_13A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">13A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">13A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_13B == '0' %}
+                            <div class="col">
+                                <button id="button_13B" class="btn btn-outline-github">13B</button>
+                            </div>
+                            {% elif i.s_13B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">13B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">13B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_13C == '0' %}
+                            <div class="col">
+                                <button id="button_13C" class="btn btn-outline-github">13C</button>
+                            </div>
+                            {% elif i.s_13C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">13C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">13C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_13D == '0' %}
+                            <div class="col">
+                                <button id="button_13D" class="btn btn-outline-github">13D</button>
+                            </div>
+                            {% elif i.s_13D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">13D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">13D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 14 -->
+                        <div class="row mb-2">
+                            {% if i.s_14A == '0' %}
+                            <div class="col">
+                                <button id="button_14A" class="btn btn-outline-github">14A</button>
+                            </div>
+                            {% elif i.s_14A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">14A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">14A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_14B == '0' %}
+                            <div class="col">
+                                <button id="button_14B" class="btn btn-outline-github">14B</button>
+                            </div>
+                            {% elif i.s_14B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">14B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">14B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_14C == '0' %}
+                            <div class="col">
+                                <button id="button_14C" class="btn btn-outline-github">14C</button>
+                            </div>
+                            {% elif i.s_14C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">14C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">14C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_14D == '0' %}
+                            <div class="col">
+                                <button id="button_14D" class="btn btn-outline-github">14D</button>
+                            </div>
+                            {% elif i.s_14D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">14D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">14D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 15 -->
+                        <div class="row mb-2">
+                            {% if i.s_15A == '0' %}
+                            <div class="col">
+                                <button id="button_15A" class="btn btn-outline-github">15A</button>
+                            </div>
+                            {% elif i.s_15A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">15A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">15A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_15B == '0' %}
+                            <div class="col">
+                                <button id="button_15B" class="btn btn-outline-github">15B</button>
+                            </div>
+                            {% elif i.s_15B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">15B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">15B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_15C == '0' %}
+                            <div class="col">
+                                <button id="button_15C" class="btn btn-outline-github">15C</button>
+                            </div>
+                            {% elif i.s_15C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">15C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">15C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_15D == '0' %}
+                            <div class="col">
+                                <button id="button_15D" class="btn btn-outline-github">15D</button>
+                            </div>
+                            {% elif i.s_15D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">15D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">15D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 16 -->
+                        <div class="row mb-2">
+                            {% if i.s_16A == '0' %}
+                            <div class="col">
+                                <button id="button_16A" class="btn btn-outline-github">16A</button>
+                            </div>
+                            {% elif i.s_16A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">16A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">16A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_16B == '0' %}
+                            <div class="col">
+                                <button id="button_16B" class="btn btn-outline-github">16B</button>
+                            </div>
+                            {% elif i.s_16B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">16B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">16B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_16C == '0' %}
+                            <div class="col">
+                                <button id="button_16C" class="btn btn-outline-github">16C</button>
+                            </div>
+                            {% elif i.s_16C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">16C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">16C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_16D == '0' %}
+                            <div class="col">
+                                <button id="button_16D" class="btn btn-outline-github">16D</button>
+                            </div>
+                            {% elif i.s_16D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">16D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">16D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 17 -->
+                        <div class="row mb-2">
+                            {% if i.s_17A == '0' %}
+                            <div class="col">
+                                <button id="button_17A" class="btn btn-outline-github">17A</button>
+                            </div>
+                            {% elif i.s_17A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">17A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">17A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_17B == '0' %}
+                            <div class="col">
+                                <button id="button_17B" class="btn btn-outline-github">17B</button>
+                            </div>
+                            {% elif i.s_17B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">17B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">17B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_17C == '0' %}
+                            <div class="col">
+                                <button id="button_17C" class="btn btn-outline-github">17C</button>
+                            </div>
+                            {% elif i.s_17C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">17C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">17C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_17D == '0' %}
+                            <div class="col">
+                                <button id="button_17D" class="btn btn-outline-github">17D</button>
+                            </div>
+                            {% elif i.s_17D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">17D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">17D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 18 -->
+                        <div class="row mb-2">
+                            {% if i.s_18A == '0' %}
+                            <div class="col">
+                                <button id="button_18A" class="btn btn-outline-github">18A</button>
+                            </div>
+                            {% elif i.s_18A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">18A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">18A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_18B == '0' %}
+                            <div class="col">
+                                <button id="button_18B" class="btn btn-outline-github">18B</button>
+                            </div>
+                            {% elif i.s_18B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">18B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">18B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_18C == '0' %}
+                            <div class="col">
+                                <button id="button_18C" class="btn btn-outline-github">18C</button>
+                            </div>
+                            {% elif i.s_18C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">18C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">18C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_18D == '0' %}
+                            <div class="col">
+                                <button id="button_18D" class="btn btn-outline-github">18D</button>
+                            </div>
+                            {% elif i.s_18D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">18D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">18D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 19 -->
+                        <div class="row mb-2">
+                            {% if i.s_19A == '0' %}
+                            <div class="col">
+                                <button id="button_19A" class="btn btn-outline-github">19A</button>
+                            </div>
+                            {% elif i.s_19A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">19A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">19A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_19B == '0' %}
+                            <div class="col">
+                                <button id="button_19B" class="btn btn-outline-github">19B</button>
+                            </div>
+                            {% elif i.s_19B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">19B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">19B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_19C == '0' %}
+                            <div class="col">
+                                <button id="button_19C" class="btn btn-outline-github">19C</button>
+                            </div>
+                            {% elif i.s_19C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">19C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">19C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_19D == '0' %}
+                            <div class="col">
+                                <button id="button_19D" class="btn btn-outline-github">19D</button>
+                            </div>
+                            {% elif i.s_19D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">19D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">19D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <!-- 20 -->
+                        <div class="row mb-2">
+                            {% if i.s_20A == '0' %}
+                            <div class="col">
+                                <button id="button_20A" class="btn btn-outline-github">20A</button>
+                            </div>
+                            {% elif i.s_20A|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">20A</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">20A</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_20B == '0' %}
+                            <div class="col">
+                                <button id="button_20B" class="btn btn-outline-github">20B</button>
+                            </div>
+                            {% elif i.s_20B|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">20B</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">20B</button>
+                            </div>
+                            {% endif %}
+
+                            <div class="col">
+                                <button class="btn btn-outline-github" hidden></button>
+                            </div>
+                            {% if i.s_20C == '0' %}
+                            <div class="col">
+                                <button id="button_20C" class="btn btn-outline-github">20C</button>
+                            </div>
+                            {% elif i.s_20C|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">20C</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">20C</button>
+                            </div>
+                            {% endif %}
+
+                            {% if i.s_20D == '0' %}
+                            <div class="col">
+                                <button id="button_20D" class="btn btn-outline-github">20D</button>
+                            </div>
+                            {% elif i.s_20D|stringformat:"s" == p_id|stringformat:"s" %}
+                            <div class="col">
+                                <button class="btn btn-green" style="cursor: not-allowed;">20D</button>
+                            </div>
+                            {% else %}
+                            <div class="col">
+                                <button class="btn btn-lime" disabled style="cursor: not-allowed;">20D</button>
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+
+
+
+
+
+
+
+                        {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- <div class="row mb-2">
+                    <div class="col">
+                        <button class="btn btn-outline-github">2A</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">2B</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github" hidden></button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">2C</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">2D</button>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <button class="btn btn-outline-github">3A</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">3B</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github" hidden></button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">3C</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-github">3D</button>
+                    </div>
+                </div> -->
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2" style="width: 160px;">
+                <div class="card">
+                    <div class="card-body">
+                
+                        <div class="row mb-3">
+                            <div class="col">
+                                <a href="">
+                                    <button class="btn btn-outline-bitbucket w-100">Refresh</button>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <a href="{% url 'passenger_remove_seat' p_id %}">
+                                    <button class="btn btn-outline-google w-100">Remove Seat</button>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="row ">
+                            <div class="col">
+                                <h6>Current Seat</h6>
+                            </div>
+                        </div>
+                        <div class="row mb-2" id="input_box">
+
+                            {% if passenger.seat_no == '0' or passenger.seat_no is None %}
+                            <div class="col text-center">
+                                <input type="text" name="" id="seat_number_input"
+                                    class="form-control text-dark text-center" readonly value=""
+                                    style="height: 50px; font-size: 30px;">
+                            </div>
+                            {% else %}
+                            <div class="col text-center">
+                                <input type="text" name="" class="form-control text-dark text-center" readonly
+                                    value="{{passenger.seat_no}}" style="height: 50px; font-size: 30px;">
+                            </div>
+                            {% endif %}
+
+
+                            <!-- <div class="col">
+                                <input type="text" name="" id="seat_number_input" class="form-control text-dark" readonly value="" style="height: 50px; font-size: 30px;">
+                              </div>
+
+                            <div class="col">
+                              <input type="text" name="" id="seat_number_input" class="form-control text-dark" readonly value="" style="height: 50px; font-size: 30px;">
+                            </div> -->
+                        </div>
+
+                        <div class="col mt-7">
+
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Key:</h5>
+
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <span class="badge badge-outline text-github w-100">Available</span>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <span class="badge bg-green w-100">Current Pax</span>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <span class="badge bg-lime-lt w-100">Selected</span>
+                                </div>
+                            </div>
+                            <div class="row mt-8">
+                                <a href="{% url 'passenger_boarding_pass' passenger.id %}">
+                                    <button class="btn btn-outline-sucess w-100">Next</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#button_1A, #button_1B, #button_1C, #button_1D,#button_2A,#button_2B, #button_2C, #button_2D,#button_3A,#button_3B,#button_3C,#button_3D,#button_4A, #button_4B,#button_4C,#button_4D,#button_5A, #button_5B,#button_5C,#button_5D,#button_6A, #button_6B,#button_6C,#button_6D,#button_7A,#button_7B,#button_7C,#button_7D,#button_8A,#button_8B,#button_8C,#button_8D,#button_9A,#button_9B,#button_9C,#button_9D,#button_10A,#button_10B,#button_10C,#button_10D,#button_11A, #button_11B, #button_11C, #button_11D,#button_12A,#button_12B, #button_12C, #button_12D,#button_13A,#button_13B,#button_13C,#button_13D,#button_14A, #button_14B,#button_14C,#button_14D,#button_15A, #button_15B,#button_15C,#button_15D,#button_16A, #button_16B,#button_16C,#button_16D,#button_17A,#button_17B,#button_17C,#button_17D,#button_18A,#button_18B,#button_18C,#button_18D,#button_19A,#button_19B,#button_19C,#button_19D,#button_20A,#button_20B,#button_20C,#button_20D').click(function () {
+            var pass_id = $('#pass_id_frwd').val();
+            var buttonValue = $(this).text();
+            var csrftoken = getCookie('csrftoken');
+
+            console.log(buttonValue)
+
+            $.ajax({
+                url: "{% url 'pass_flight_seat' %}",
+                method: "POST",
+                data: {
+                    'button_value': buttonValue,
+                    'pass_id': pass_id
+
+                },
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                success: function (response) {
+
+                    console.log(response.seat);
+
+                    $('#seat_s').load(window.location.href + ' #seat_s');
+                    $('#input_box').load(window.location.href + ' #input_box')
+                    $('#seat_number_input').val(response.seat);
+
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    console.log('Error:', errorThrown);
+                }
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+<!-- <script>
+    var value = "{{ pass_seats }}";
+    var value2 = 0;
+
+    console.log(value)
+
+    if (value2 === value) {
+        console.log("It's the same");
+    } else {
+        console.log("It's not the same");
+        var element = document.getElementById("booked_seats_table");
+        element.classList.add("no-pointer");
+    }
+</script>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+    $(document).ready(function () {
+        $("#holdbagtable").on("click", ".remove-btn", function () {
+            var csrftoken = getCookie('csrftoken');
+            var id = $(this).data("id");
+            console.log(id)
+            $.ajax({
+                url: "{% url 'checkin_holdbagremove' %}",
+                method: "POST",
+                data: { id: id },
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                success: function (response) {
+                    
+                    console.log('removed')
+                    $('#bagcount').load(window.location.href + ' #bagcount');
+                    $('#holdbagtable').load(window.location.href + ' #holdbagtable', function () {
+                        $("#holdbagtable").on("click", ".remove-btn", function () {
+                        });
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,344 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+{% for flight in fly %}
+
+
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-6 text-end float-end">
+                <div class="card-body">
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Report Type :</label>
+                        <div class="col-6">
+                            <select class="form-select" id="reportSelect" onchange="showHideDiv()">
+                                <option>Flight Summary</option>
+                                <option value="Passenger-Checked-in-Report">Passenger Checked-in Report</option>
+                                <option>Passenger Not Checked-in Report</option>
+                                <option>Passenger Offloaded Report</option>
+                                <option>Passengers Boarded</option>
+                                <option>Passengers Not Boarded</option>
+                                <option>Passenger Transfer Flight Report</option>
+                                <option>Passenger Seating Plan</option>
+                                <option>NOREC Passengers</option>
+                                <option>Deleted Passengers</option>
+                                <option>Flight Passenger and Bag Weights</option>
+                                <option>Gate Summary Report</option>
+                                <option>Baggage Manitest</option>
+                                <option>Bags Not Traveling Report</option>
+                                <option>Bags Not Weighed</option>
+                                <option>Bags Loaded Report</option>
+                                <option>Bags Not Loaded Report</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <button class="btn btn-outline-dark">Generate Report</button>
+            </div>
+
+
+
+        </div>
+
+        <div class="row">
+
+
+
+            <div class="col-md-12 m-4">
+                <div class="row">
+                    <div class="col-9">
+
+                        <div class="card" style="height: 700px; background-color: rgba(240, 248, 255, 0);">
+
+
+                            <div class="card-body card-body1" id="checkin-hiddenDiv" style="display: none;">
+                                <div class="card-title text-center">
+                                    FLIGHT CHECKED IN SUMMARY
+                                </div>
+                                <div class="row m-1">
+                                    <div class="card col-7" style="background-color: rgba(240, 248, 255, 0);">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h4 class="card-title">
+                                                        {{flight.aircraft_reg.name}} |
+                                                        {{flight.flight_number }}</h4>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <h5 class="card-title">
+                                                        {{flight.departure_date }}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h6 class="card-text mb-0">
+                                                        {{flight.departure_airport_from.airport_name}}
+                                                    </h6>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <h6 class="card-text mb-0 overflow-hidden">
+                                                        {{flight.arrival_airport_to.airport_name}}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <p class="card-text" style="font-size: 20px; font-weight: bold;">
+                                                        {{flight.departure_airport_from.iata_code}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4 text-center mt-1">--------
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-plane" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none">
+                                                        </path>
+                                                        <path
+                                                            d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z">
+                                                        </path>
+                                                    </svg> --------
+                                                </div>
+                                                <div class="col-4 text-end">
+
+                                                    <p class="card-text" style="font-size: 20px; font-weight: bold;">
+                                                        {{flight.arrival_airport_to.iata_code}}
+                                                    </p>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="card-text">
+                                                        {{flight.departure_time|time:"h:i A" }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <p class="card-text">
+                                                        {{flight.arrival_time|time:"h:i A" }}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card col-5" style="background-color: rgba(240, 248, 255, 0);">
+
+                                        <div class="card-body text-center justify-content-center">
+
+                                            <div class="mb-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-user" width="24" height="24"
+                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                                </svg>
+                                                TOTAL PERSONS: <strong>{{check_pass_count}}</strong>
+                                            </div>
+                                            <div class="mb-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-luggage" width="24" height="24"
+                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path
+                                                        d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z">
+                                                    </path>
+                                                    <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1"></path>
+                                                    <path d="M6 10h12"></path>
+                                                    <path d="M6 16h12"></path>
+                                                    <path d="M9 20v1"></path>
+                                                    <path d="M15 20v1"></path>
+                                                </svg>
+                                                BAGS: <strong id="totalbagscount"></strong>
+                                            </div>
+                                            <!-- <div class="mb-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted"
+                                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                                                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                                                </svg>
+                                                Lives in: <strong>Šentilj v Slov. Goricah, Slovenia</strong>
+                                            </div>
+                                            <div class="mb-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted"
+                                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                                                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                                                </svg>
+                                                Lives in: <strong>Šentilj v Slov. Goricah, Slovenia</strong>
+                                            </div> -->
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-4">
+                                    <div class="col-lg-12">
+                                        <div class="card" style="background-color: rgba(240, 248, 255, 0);">
+                                            <div class="card-body">
+                                                <h3 class="card-title">PASSENGER DETAILS</h3>
+                                                <table class="table table-sm table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SEQ</th>
+                                                            <th>PASSENGER</th>
+                                                            <th>TO</th>
+                                                            <th>CLASS</th>
+                                                            <th>PASSPORT</th>
+                                                            <th>BAGS</th>
+                                                            <th>GROUP</th>
+                                                            <th>SEAT</th>
+                                                            <th>GENDER</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for ps in passe %}
+                                                        <tr>
+                                                            <td>{{ ps.seq_no }}</td>
+                                                            <td>{{ ps.fullname }}</td>
+                                                            <td>{{ ps.flight_id.arrival_airport_to.iata_code }}</td>
+                                                            <td>Y</td>
+                                                            <td>{{ ps.passport_number }}</td>
+                                                            <td class="bagcount">{{ ps.bags }}</td>
+                                                            <td></td>
+                                                            <td>{{ ps.seat_no }}</td>
+                                                            <td>{{ ps.gender }}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                              
+
+
+
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-3 g-3">
+                        <div class="col mb-2">
+                            <button onclick="printDiv()" class="btn btn-outline-dark w-50">Print</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">Save</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">Send Message</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">Pax Manifest (Excel)</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">Bag Manifest (Excel)</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">Weights (Excel)</button>
+                        </div>
+                        <div class="col mb-2">
+                            <button class="btn btn-outline-dark w-50">GAR (Excel)</button>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<script>
+    function CountBags() {
+        var bagElements = document.getElementsByClassName("bagcount");
+        var totalBags = 0;
+
+        for (var i = 0; i < bagElements.length; i++) {
+            var bagCount = parseInt(bagElements[i].textContent);
+            totalBags += bagCount;
+        }
+        var totalBagsCountElement = document.getElementById("totalbagscount");
+        totalBagsCountElement.textContent = totalBags.toString();
+
+    }
+</script>
+<script>
+    function showHideDiv() {
+        var selectedTime = document.getElementById("reportSelect").value;
+        var checkin_hiddenDiv = document.getElementById("checkin-hiddenDiv");
+        if (selectedTime === "Passenger-Checked-in-Report") {
+            checkin_hiddenDiv.style.display = "block";
+            CountBags();
+        } else {
+            checkin_hiddenDiv.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    function printDiv() {
+        var printContents = document.getElementById("checkin-hiddenDiv").innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+{% endfor %}
+
+{% endblock %}

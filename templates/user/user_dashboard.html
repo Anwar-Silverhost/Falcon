@@ -1,0 +1,283 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'check_in' %}" >
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/icons8-checked-user-male-100.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Check in</div>
+
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" >
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/takeof.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Gate Boarding</div>
+                       
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/landingplane.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Arrival Flight Check</div>
+
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/icons8-telescope-100 copy.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Flight Watch</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'flight_administration' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/planee.png" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Flight Administration</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'flight_administration' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/meemanam.png" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Flights</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'scanner' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/scan.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Scanner</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'logs' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/icons8-log-100.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Log</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'user_settings' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/setttt.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Settings</div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-xl-3">
+                <a class="card card-link" href="{% url 'user_logout' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="../../static/dist/iconss/log.png" alt="" width="25%">
+                        </div>
+                        <div class="card-title mb-1">Logout</div>
+
+                    </div>
+                </a>
+            </div>
+
+
+
+
+            <!-- <div class="col-md-6 col-xl-4">
+                <a class="card card-link" href="{% url 'check_in' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="avatar avatar-xl rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
+                                    <path d="M15 19l2 2l4 -4"></path>
+                                 </svg>
+                            </span>
+                        </div>
+                        <div class="card-title mb-1">Check in</div>
+                       
+                    </div>
+
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <a class="card card-link" href="{% url 'check_in' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="avatar avatar-xl rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-plane-departure" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path
+                                    d="M14.639 10.258l4.83 -1.294a2 2 0 1 1 1.035 3.863l-14.489 3.883l-4.45 -5.02l2.897 -.776l2.45 1.414l2.897 -.776l-3.743 -6.244l2.898 -.777l5.675 5.727z">
+                                </path>
+                                <path d="M3 21h18"></path>
+                            </svg>
+                            </span>
+                        </div>
+                        <div class="card-title mb-1">Gate Boarding</div>
+                       
+                    </div>
+
+                </a>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <a class="card card-link" href="{% url 'check_in' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="avatar avatar-xl rounded">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-plane-arrival" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="black"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z">
+                                            </path>
+                                            <path d="M3 21h18"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="card-title mb-1">Arrival Flight Check</div>
+                       
+                    </div>
+
+                </a>
+            </div>
+
+
+
+            <div class="col-md-6 col-xl-4">
+                <a class="card card-link" href="{% url 'check_in' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="avatar avatar-xl rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-telescope" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M6 21l6 -5l6 5"></path>
+                                <path d="M12 13v8"></path>
+                                <path
+                                    d="M3.294 13.678l.166 .281c.52 .88 1.624 1.265 2.605 .91l14.242 -5.165a1.023 1.023 0 0 0 .565 -1.456l-2.62 -4.705a1.087 1.087 0 0 0 -1.447 -.42l-.056 .032l-12.694 7.618c-1.02 .613 -1.357 1.897 -.76 2.905z">
+                                </path>
+                                <path d="M14 5l3 5.5"></path>
+                            </svg>
+                            </span>
+                        </div>
+                        <div class="card-title mb-1">Flight Watch</div>
+                       
+                    </div>
+
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <a class="card card-link" href="{% url 'flight_administration' %}">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="avatar avatar-xl rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-plane-tilt" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="black" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M14.5 6.5l3 -2.9a2.05 2.05 0 0 1 2.9 2.9l-2.9 3l2.5 7.5l-2.5 2.55l-3.5 -6.55l-3 3v3l-2 2l-1.5 -4.5l-4.5 -1.5l2 -2h3l3 -3l-6.5 -3.5l2.5 -2.5l7.5 2.5z">
+                                            </path>
+                                        </svg>
+                            </span>
+                        </div>
+                        <div class="card-title mb-1">Flight Administration</div>
+                       
+                    </div>
+
+                </a>
+            </div>
+ -->
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .home-main {
+        display: block;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    var element = document.querySelector('.home-main');
+    element.classList.add('hidden');
+</script>
+{% endblock %}

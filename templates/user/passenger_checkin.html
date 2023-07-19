@@ -1,0 +1,768 @@
+{% extends 'user/user_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+
+
+
+
+<div class="mx-auto" style="width:600px; margin-top: 20px;" id="addpassorid">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Passport / ID Document</h4>
+            </div>
+            <form action="">
+                <div class="card-body">
+
+                    <h3>Passenger: <span style="text-transform: uppercase; font-size: 20px;"> &nbsp; &nbsp;
+                            {{passenger.surname}}/{{passenger.fullname}}</span></h3>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Surname</label>
+                                <input type="text" class="form-control" name="" id="surname"
+                                    value="{{passenger.surname}}">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="" id="fullname"
+                                    value="{{passenger.fullname}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Gender</label>
+                                <select name="" id="gender" class="form-control">
+                                    <option value="{{passenger.gender}}" selected>{{passenger.gender}}</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Pax Type</label>
+                                <select name="" id="pax_type" class="form-control">
+                                    <option value="{{passenger.pax_type}}" selected>{{passenger.pax_type}}</option>
+                                    <option value="Adult">Adult</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Infant">Infant</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mt-3">ID/Passport : </h3>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Document Type</label>
+                                <select name="" id="documenttype" class="form-control">
+                                    <option value="Optima ID" selected>Optima ID</option>
+
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Document Number</label>
+                                <input type="text" class="form-control" name="" id="documentnumber"
+                                    value="{{passenger.documentnumber}}">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Document Expiry</label>
+                                <input type="date" class="form-control" name="" id="documentexp"
+                                    value="{{passenger.documentexpiry}}">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Combany</label>
+                                <input type="text" class="form-control" name="" id="combany">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <input type="checkbox" id="skipCheckbox" class="from-control">
+                                <label for="skipCheckbox">&nbsp;&nbsp;Skip This Step</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card-footer text-end">
+                    <button type="button" id="submitBtn" class="btn btn-outline-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="mx-auto" style="width:600px; margin-top: 20px;" hidden id="passweigth">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Passenger Weight</h4>
+            </div>
+            <div class="card-body">
+                <h3>Passenger: <span style="text-transform: uppercase; font-size: 20px;"> &nbsp; &nbsp;
+                        {{passenger.surname}}/{{passenger.fullname}}</span></h3>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Passenger Weight:</label>
+                        </div>
+                        <div class="col-md-6 mb-3">
+
+                            <input type="text" class="form-control" name="" id="pass_weight"
+                                value="{{passenger.pax_weight}}" placeholder="{{passenger.pax_weight}} KG">
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="button" id="submitBtnweight" class="btn btn-outline-primary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="mx-auto" style="width:700px; margin-top: 20px;" hidden id="passbag">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add Passenger Bag</h4>
+            </div>
+            <div class="card-body">
+                <h3>Passenger: <span style="text-transform: uppercase; font-size: 20px;"> &nbsp; &nbsp;
+                        {{passenger.surname}}/{{passenger.fullname}}</span></h3>
+
+
+                <h3 class="mt-3">Hold Baggage:</h3>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="mb-3 row">
+                            <label class="col-3 col-form-label required">Weight</label>
+                            <div class="col">
+                                <input type="text" class="form-control w-100" placeholder="" id="holdbagweight">
+
+
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-github " id="addholdbag">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-luggage"
+                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z">
+                                        </path>
+                                        <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1"></path>
+                                        <path d="M6 10h12"></path>
+                                        <path d="M6 16h12"></path>
+                                        <path d="M9 20v1"></path>
+                                        <path d="M15 20v1"></path>
+                                    </svg>
+                                    Add Bag
+                                </a>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" id="holdbagtable">
+                        <div class="card">
+                            <table class="table card-table table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th>Tag</th>
+                                        <th>Weight</th>
+                                        <th>Printed</th>
+                                        <th>Gate Tag</th>
+                                        <th></th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in bags %}
+                                    <tr>
+                                        <td>{{i.tag}}</td>
+                                        <td>{{i.weight}}</td>
+                                        <td><input type="checkbox" name="" id="" class="form-check"></td>
+                                        <td><input type="checkbox" name="" id="" class="form-check"></td>
+                                        <td class="text-end"><button
+                                                class="btn btn-outline-github">Edit</button>&nbsp;<button
+                                                class="btn btn-outline-github remove-btn" data-id="{{i.id}}">Remove
+                                                Bag</button></td>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h3 class="mt-5">Hand Baggage:</h3>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required">Weight</label>
+                                <div class="col">
+                                    <input type="text" class="form-control w-100" placeholder="" id="handbagweight">
+
+
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-outline-github " id="addhandbag">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-briefcase" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z">
+                                            </path>
+                                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+                                            <path d="M12 12l0 .01"></path>
+                                            <path d="M3 13a20 20 0 0 0 18 0"></path>
+                                        </svg>
+                                        Add Hand Baggage
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" id="handbagtable">
+                            <div class="card">
+                                <table class="table card-table table-vcenter">
+                                    <thead>
+                                        <tr>
+                                            <th>Weight</th>
+
+                                            <th></th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for hb in handbags %}
+                                        <tr>
+                                            <td>{{hb.weight}}</td>
+
+                                            <td class="text-end">
+                                                <button class="btn btn-outline-github remove-btn" data-id="{{hb.id}}">Remove Bag</button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="card-footer mt-3">
+                            <div class="row">
+                                <div class="col" id="bagcount">
+                                    <h3>Hold Baggage Total: {{bags_count}} @ 10</h3>
+                                </div>
+                                <div class="col" id="handbagcount">
+                                    <h3>Hand Baggage Total: {{handbags_count}} @ 5</h3>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col text-end">
+                                    <a href="{% url 'passenger_seat' passenger.id %}" id="nextbtn12">
+                                    <button type="button" id="submitBtnweight"
+                                        class="btn btn-outline-primary">Next</button>
+                                    </a>
+
+                                    <a href="{% url 'passenger_edit' passenger.id %}" id="nextbtn123" hidden>
+                                        <button type="button" id="submitBtnweight"
+                                            class="btn btn-primary">Save</button>
+                                        </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+function bagcheck() {
+  var storedValue = sessionStorage.getItem('Bag');
+  if (storedValue === 'Yes') {
+    sessionStorage.removeItem('Bag');
+    var divToHide = document.getElementById('addpassorid');
+    var divToHide1 = document.getElementById('nextbtn12');
+    divToHide1.style.display = 'none';
+    divToHide.style.display = 'none';
+    var divToShow = document.getElementById('passbag');
+    var divToShow1 = document.getElementById('nextbtn123');
+
+    divToShow.removeAttribute('hidden');
+    divToShow1.removeAttribute('hidden');
+
+  }
+}
+
+bagcheck();
+
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function () {
+
+            var csrftoken = getCookie('csrftoken');
+            var id = '{{ passenger.id }}';
+            var surname = $('#surname').val();
+            var fullname = $('#fullname').val();
+            var gender = $('#gender').val();
+            var paxtype = $('#pax_type').val();
+            var documenttype = $('#documenttype').val();
+            var documentnumber = $('#documentnumber').val();
+            var documentexp = $('#documentexp').val();
+            var combany = $('#combany').val();
+
+
+
+            var data = {
+                id: id,
+                surname: surname,
+                fullname: fullname,
+                gender: gender,
+                paxtype: paxtype,
+                documenttype: documenttype,
+                documentnumber: documentnumber,
+                documentexp: documentexp,
+                combany: combany,
+            };
+
+            console.log(data)
+            $.ajax({
+                url: '{% url "checkin_addpassorid" %}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: data,
+                success: function (response) {
+                    console.log(response);
+
+                    $('#addpassorid').load(window.location.href + ' #addpassorid');
+                    $('#addpassorid').hide();
+                    $('#passweigth').removeAttr('hidden')
+
+
+
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ': ' + xhr.responseText);
+                }
+            });
+        });
+
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtnweight').click(function () {
+
+   
+
+            var csrftoken = getCookie('csrftoken');
+            var id = '{{ passenger.id }}';
+            var pass_weight = $('#pass_weight').val();
+
+            var data = {
+                id: id,
+                pass_weight: pass_weight,
+            };
+            $.ajax({
+                url: '{% url "checkin_addpassweight" %}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: data,
+                success: function (response) {
+                    $('#addpassorid').hide();
+                    $('#passweigth').hide();
+                    $('#passbag').removeAttr('hidden')
+
+
+
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ': ' + xhr.responseText);
+                }
+            });
+        });
+
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#addholdbag').click(function () {
+
+            var csrftoken = getCookie('csrftoken');
+            var id = '{{ passenger.id }}';
+            var holdbagweight = $('#holdbagweight').val();
+
+            var data = {
+                id: id,
+                holdbagweight: holdbagweight,
+            };
+            $.ajax({
+                url: '{% url "checkin_holdbagweight" %}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: data,
+                success: function (response) {
+                    // $('#addpassorid').hide();
+                    // $('#passweigth').hide();
+                    // $('#passbag').removeAttr('hidden')
+
+                    console.log('hiiiiiiiiiiiiiiiiií')
+                    $('#bagcount').load(window.location.href + ' #bagcount');
+                    $('#holdbagtable').load(window.location.href + ' #holdbagtable');
+                    $('#holdbagweight').load(window.location.href + ' #holdbagweight');
+
+
+
+
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ': ' + xhr.responseText);
+                }
+            });
+        });
+
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#holdbagtable").on("click", ".remove-btn", function () {
+            var csrftoken = getCookie('csrftoken');
+            var id = $(this).data("id");
+            console.log(id)
+            $.ajax({
+                url: "{% url 'checkin_holdbagremove' %}",
+                method: "POST",
+                data: { id: id },
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                success: function (response) {
+                    
+                    console.log('removed')
+                    $('#bagcount').load(window.location.href + ' #bagcount');
+                    $('#holdbagtable').load(window.location.href + ' #holdbagtable', function () {
+                        $("#holdbagtable").on("click", ".remove-btn", function () {
+                        });
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#addhandbag').click(function () {
+
+            var csrftoken = getCookie('csrftoken');
+            var id = '{{ passenger.id }}';
+            var handbagweight = $('#handbagweight').val();
+
+            var data = {
+                id: id,
+                handbagweight: handbagweight,
+            };
+            $.ajax({
+                url: '{% url "checkin_handbagweight" %}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: data,
+                success: function (response) {
+                    // $('#addpassorid').hide();
+                    // $('#passweigth').hide();
+                    // $('#passbag').removeAttr('hidden')
+
+                    console.log('hiiiiiiiiiiiiiiiiií')
+                    $('#handbagcount').load(window.location.href + ' #handbagcount');
+                    $('#handbagtable').load(window.location.href + ' #handbagtable');
+                    // $('#holdbagweight').load(window.location.href + ' #holdbagweight');
+
+
+
+
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ': ' + xhr.responseText);
+                }
+            });
+        });
+
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#handbagtable").on("click", ".remove-btn", function () {
+            var csrftoken = getCookie('csrftoken');
+            var id = $(this).data("id");
+            console.log(id)
+            $.ajax({
+                url: "{% url 'checkin_handbagremove' %}",
+                method: "POST",
+                data: { id: id },
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                success: function (response) {
+                    
+                    console.log('removed')
+                    $('#handbagcount').load(window.location.href + ' #handbagcount');
+                    $('#handbagtable').load(window.location.href + ' #handbagtable', function () {
+                        $("#handbagtable").on("click", ".remove-btn", function () {
+                        });
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+    const checkbox = document.getElementById('skipCheckbox');
+    const nextButton = document.getElementById('nextButton');
+
+    checkbox.addEventListener('change', function () {
+        if (checkbox.checked) {
+            nextButton.removeAttribute('disabled');
+        } else {
+            nextButton.setAttribute('disabled', true);
+        }
+    });
+</script> -->
+
+<!-- 
+<script>
+    $(document).ready(function () {
+        $(".remove-btn").click(function () {
+            var csrftoken = getCookie('csrftoken');
+            var id = $(this).data("id");
+            console.log(id)
+            $.ajax({
+                url: "{% url 'checkin_holdbagremove' %}",
+                method: "POST",
+                data: { id: id },
+                headers: {
+                    "X-CSRFToken": csrftoken 
+                },
+                success: function (response) {
+                    console.log('removed')
+                    $('#holdbagtable').load(window.location.href + ' #holdbagtable');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+</script> -->
+
+{% endblock %}

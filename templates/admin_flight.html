@@ -1,0 +1,401 @@
+{% extends 'admin_navbar.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="page-wrapper">
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <h2 class="page-title">
+                        Manage Flight
+                    </h2>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+                            data-bs-target="#modal-report">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plane-tilt"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path
+                                    d="M14.5 6.5l3 -2.9a2.05 2.05 0 0 1 2.9 2.9l-2.9 3l2.5 7.5l-2.5 2.55l-3.5 -6.55l-3 3v3l-2 2l-1.5 -4.5l-4.5 -1.5l2 -2h3l3 -3l-6.5 -3.5l2.5 -2.5l7.5 2.5z">
+                                </path>
+                            </svg>Add Flight
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Flights</h3>
+                            
+                        </div>
+                        <div class="card-body border-bottom py-3">
+                            <div class="d-flex">
+                                <div class="text-muted">
+                                    Show
+                                    <div class="mx-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" value="10" size="4"
+                                            id="entriesInput" aria-label="Invoices count">
+                                    </div>
+                                    entries
+                                </div>
+                                <div class="ms-auto text-muted">
+                                    Search:
+                                    <div class="ms-2 d-inline-block">
+                                        <input type="text" class="form-control form-control-sm" id="searchInput"
+                                            aria-label="Search invoice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="height: 600px;">
+                            <table class="table card-table table-vcenter text-nowrap datatable" id="invoiceTable">
+                                <thead>
+                                    <tr class="th_dark">
+                                        <th class="w-1" style="color:black">Flight Id
+                                        </th>
+                                        <th style="color:black">Aircraft Name</th>
+                                        <th style="color:black">Manufacturer</th>
+                                        <th style="color:black">Modal</th>
+                                        <th style="color:black">Registration Number</th>
+                                        <th style="color:black">Year of Manufacture</th>
+                                        <th style="color:black">Seating Capacity</th>
+                                        <th style="color:black">Fuel Capacity</th>
+                                        <th style="color:black">Engin Type</th>
+                                        <th style="color:black">Classes</th>
+                                        <th style="color:black"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for i in air %}
+                                    <tr>
+                                        <td class="w-1">{{i.name}}</td>
+                                        <td class="w-1">{{i.name}}</td>
+                                        <td>{{i.manufacturer}}</td>
+                                        <!-- <td>{{i.departure_time}}</td>
+                                        <td>{{i.departure_time}}</td> -->
+                                        <td>{{ i.model }}</td>
+                                        <td>{{ i.registration_number }}</td>
+                                        <td>{{i.year_of_manufacture}}</td>
+                                        <td>{{i.seating_capacity}}</td>
+                                        <td>{{i.fuel_capacity}}</td>
+                                        <td>{{i.engine_type}}</td>
+
+
+                                        <!-- {% if i.flight_status == 'scheduled' %}
+                                        <td><span class="badge badge-outline text-purple">Scheduled</span></td>
+                                        {% elif i.flight_status == 'finalized' %}
+                                        <td><span class="badge badge-outline text-green">Finalized</span></td>
+                                        {% else %}
+                                        <td><span class="badge badge-outline text-lime">Open</span></td>
+                                        {% endif %} -->
+                                        <td>{{i.classes}}</td>
+                                        <!-- <td>{{i.task_status}}</td>
+                                        <td class="text-end">
+                                            <button class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                data-bs-target="#modal-simple-{{ i.id }}" data-flight-id="{{ i.id }}">
+                                                EDIT
+                                            </button>
+                                            <button class="btn btn-outline-dark">
+                                                COPY
+                                            </button>
+                                            <button class="btn btn-outline-dark">
+                                                DELETE
+                                            </button>
+                                        </td> -->
+                                    </tr>
+
+
+
+
+
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="card-footer d-flex align-items-center">
+                        <p class="m-0 text-muted" id="entriesText">Showing 0 to 0 of 0 entries</p>
+                        <ul class="pagination m-0 ms-auto">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M15 6l-6 6l6 6" />
+                                    </svg>
+                                    prev
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    next
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M9 6l6 6l-6 6" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Fligth</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'admin_flight_save' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Aircraft Name</label>
+                                <input type="text" class="form-control" name="f_n">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Manufacturer</label>
+                                <input type="text" class="form-control" name="manufacture">
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Modal</label>
+                                <input type="text" class="form-control" name="model">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Registration Number</label>
+                                <input type="text" class="form-control" name="r_n">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Year of Manufacture</label>
+                                <input type="text" class="form-control" name="y_o_m">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Seating Capacity</label>
+                                <input type="number" class="form-control" name="s_c">
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Fuel Capacity</label>
+                                <input type="text" class="form-control" name="f_c">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Engin Type</label>
+                                <select name="e_t" id="" class="form-control">
+                                    <option value="">Select Engin</option>
+                                    <option value="turbofan">Turbofan</option>
+                                    <option value="turboprop">Turboprop</option>
+                                    <option value="piston">Piston</option>
+                                    <option value="jet">Jet</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label class="form-label">Total Class</label>
+                                <input type="number" class="form-control" name="t_c">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button class="btn btn-azure" type="submit">Save</button>
+                        </div>
+                    </div>
+            </div>
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+        filterTable();
+    });
+
+    function filterTable() {
+        var input = document.getElementById("searchInput").value.toLowerCase();
+        var table = document.getElementById("invoiceTable");
+        var rows = table.getElementsByTagName("tr");
+        var count = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var display = false;
+
+            for (var j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().indexOf(input) > -1) {
+                    display = true;
+                    break;
+                }
+            }
+
+            if (display) {
+                rows[i].style.display = "";
+                count++;
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+
+        document.getElementById("showingCount").textContent = count.toString();
+    }
+</script>
+
+<script>
+    var entriesInput = document.getElementById("entriesInput");
+    var invoiceTable = document.getElementById("invoiceTable");
+    var showingText = document.getElementById("entriesText");
+
+    entriesInput.addEventListener("input", function () {
+        updateTable();
+    });
+
+    function updateTable() {
+        var entries = parseInt(entriesInput.value, 10);
+        var rows = invoiceTable.getElementsByTagName("tr");
+        var totalCount = rows.length - 1; // Exclude header row
+        var totalPages = Math.ceil(totalCount / entries);
+        var currentPage = 1;
+
+        for (var i = 0; i < rows.length; i++) {
+            if (i === 0) {
+                rows[i].style.display = ""; // Display header row
+            } else {
+                rows[i].style.display = i <= entries ? "" : "none";
+
+                if (i > entries) {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        showingText.textContent = "Showing 1 to " + Math.min(entries, totalCount) + " of " + totalCount + " entries";
+        renderPagination(totalPages, currentPage);
+    }
+
+    function renderPagination(totalPages, currentPage) {
+        // Replace this code with your pagination logic
+        var pagination = document.querySelector(".pagination");
+        pagination.innerHTML = "";
+
+        for (var i = 1; i <= totalPages; i++) {
+            var li = document.createElement("li");
+            var link = document.createElement("a");
+            link.textContent = i;
+            link.href = "#";
+            li.appendChild(link);
+
+            if (i === currentPage) {
+                li.classList.add("active");
+            }
+
+            pagination.appendChild(li);
+        }
+    }
+
+    updateTable(); // Initial table update
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
